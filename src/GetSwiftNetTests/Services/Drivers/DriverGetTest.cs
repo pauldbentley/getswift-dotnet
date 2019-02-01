@@ -7,27 +7,34 @@
     {
         private DriverService Service { get; set; }
 
-        public override Driver Act(DriverGetInput input)
+        public override Driver Act()
         {
-            return Service.Get(input);
+            return Service.Get(Input);
         }
 
-        public override Task<Driver> ActAsync(DriverGetInput input)
+        public override Task<Driver> ActAsync()
         {
-            return Service.GetAsync(input);
+            return Service.GetAsync(Input);
         }
 
-        public override DriverGetInput Arrange()
+        public override bool Arrange()
         {
+            if (TestConstants.HasDrivers || !TestConstants.DriverId.HasValue)
+            {
+                return false;
+            }
+
             Service = new DriverService();
-            return new DriverGetInput(TestConstants.DriverId);
+            Input = new DriverGetInput(TestConstants.DriverId.Value);
+
+            return true;
         }
 
-        public override void Assert(DriverGetInput input, Driver actual)
+        public override void Assert(Driver actual)
         {
-            base.Assert(input, actual);
+            base.Assert(actual);
 
-            actual.Identifier.ShouldBe(input.Id);
+            actual.Identifier.ShouldBe(Input.Id);
         }
     }
 }

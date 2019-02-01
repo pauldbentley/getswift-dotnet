@@ -5,35 +5,44 @@
 
     public class TestApiKeyFromInputTest : TestMethod<TestRunInput, TestRunResponse>
     {
-        private static readonly Guid ConfigurationApiKey = new Guid("00000000-0000-0000-0000-000000000001");
-        private static readonly Guid ServiceApiKey = new Guid("00000000-0000-0000-0000-000000000002");
-        private static readonly Guid InputApiKey = new Guid("00000000-0000-0000-0000-000000000003");
+        private static Guid ConfigurationApiKey { get; } = new Guid("00000000-0000-0000-0000-000000000001");
+
+        private static Guid ServiceApiKey { get; } = new Guid("00000000-0000-0000-0000-000000000002");
+
+        private static Guid InputApiKey { get; } = new Guid("00000000-0000-0000-0000-000000000003");
 
         private TestService Service { get; set; }
 
-        public override TestRunResponse Act(TestRunInput input)
+        public override TestRunResponse Act()
         {
-            // This should take the API from the service
-            var actual = Service.Run(input);
-            GetSwiftConfiguration.ApiKey = null;
+            var actual = Service.Run(Input);
             return actual;
         }
 
-        public override TestRunInput Arrange()
+        public override bool Arrange()
         {
             GetSwiftConfiguration.ApiKey = ConfigurationApiKey;
             Service = new TestService(ServiceApiKey);
-            return new TestRunInput
+            Input = new TestRunInput
             {
                 ApiKey = InputApiKey
             };
+
+            return true;
         }
 
-        public override void Assert(TestRunInput input, TestRunResponse actual)
+        public override void Assert(TestRunResponse actual)
         {
-            base.Assert(input, actual);
+            base.Assert(actual);
             actual.Success.ShouldBe(true);
-            input.ApiKey.ShouldBe(InputApiKey);
+            Input.ApiKey.ShouldBe(InputApiKey);
+        }
+
+        public override void Cleanup()
+        {
+            base.Cleanup();
+
+            GetSwiftConfiguration.ApiKey = null;
         }
     }
 }

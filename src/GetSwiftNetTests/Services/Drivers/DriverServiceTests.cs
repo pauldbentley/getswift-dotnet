@@ -17,15 +17,15 @@
         }
 
         [Fact]
-        public void GetWithNonExistentId()
+        public void GetWithInvalidId()
         {
-            new DriverGetWithNonExistentIdTest().Run();
+            new DriverGetWithInvalidIdTest().Run();
         }
 
         [Fact]
-        public void GetWithNonExistentIdAsync()
+        public void GetWithInvalidIdAsync()
         {
-            new DriverGetWithNonExistentIdTest().RunAsync();
+            new DriverGetWithInvalidIdTest().RunAsync();
         }
 
         [Theory]

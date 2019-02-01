@@ -12,34 +12,41 @@
     public abstract class TestMethod<TInput, TOutput>
     {
         /// <summary>
+        /// Gets or sets the input.
+        /// </summary>
+        public TInput Input { get; set; }
+
+        /// <summary>
         /// Run the test.
         /// </summary>
         public void Run()
         {
-            var input = Arrange();
-            var actual = Act(input);
-            Assert(input, actual);
+            if (Arrange())
+            {
+                var actual = Act();
+                Assert(actual);
+            }
+
+            Cleanup();
         }
 
         /// <summary>
-        /// Initializes objects and sets the value of each set of data that is passed to the method under test.
+        /// Initializes objects and sets the value of <see cref="Input"/> which will be passed to the method under test.
         /// </summary>
-        /// <returns>The input for the test.</returns>
-        public abstract TInput Arrange();
+        /// <returns>true if the test should execute, false otherwise.</returns>
+        public abstract bool Arrange();
 
         /// <summary>
-        /// Invokes the method under test with the arranged parameters.
+        /// Invokes the method under test with the arranged <see cref="Input"/> parameter.
         /// </summary>
-        /// <param name="input">The input to the method under test.</param>
         /// <returns>The output created by the method under test.</returns>
-        public abstract TOutput Act(TInput input);
+        public abstract TOutput Act();
 
         /// <summary>
         /// Verifies that the action of the method under test behaves as expected.
         /// </summary>
-        /// <param name="input">The input given to the method under test.</param>
         /// <param name="actual">The output created by the method under test.</param>
-        public virtual void Assert(TInput input, TOutput actual)
+        public virtual void Assert(TOutput actual)
         {
             actual.ShouldNotBeNull();
 
@@ -58,6 +65,14 @@
                 response.StatusCode.ShouldBe(HttpStatusCode.OK);
                 response.ErrorCode.ShouldBe(ErrorCode.None);
             }
+        }
+
+        /// <summary>
+        /// Performs a post-test cleanup.
+        /// </summary>
+        public virtual void Cleanup()
+        {
+            Input = default(TInput);
         }
     }
 }

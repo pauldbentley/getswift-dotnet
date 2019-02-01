@@ -60,12 +60,12 @@
         /// List drivers.
         /// </summary>
         /// <param name="input">The input for the request.</param>
-        /// <returns>A <see cref="ModelCollection{T}"/> of <see cref="Driver"/> objects.</returns>
-        public ModelCollection<Driver> List(DriverListInput input)
+        /// <returns>An <see cref="ApiList{T}"/> of <see cref="Driver"/> objects.</returns>
+        public ApiList<Driver> List(DriverListInput input)
         {
             Guard.NotNull(input, nameof(input));
 
-            return GetRequest<ModelCollection<Driver>>(input);
+            return GetRequest<ApiList<Driver>>(input);
         }
 
         /// <summary>
@@ -73,12 +73,12 @@
         /// </summary>
         /// <param name="input">The input for the request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>A <see cref="ModelCollection{T}"/> of <see cref="Driver"/> objects.</returns>
-        public Task<ModelCollection<Driver>> ListAsync(DriverListInput input, CancellationToken cancellationToken = default(CancellationToken))
+        /// <returns>An <see cref="ApiList{T}"/> of <see cref="Driver"/> objects.</returns>
+        public Task<ApiList<Driver>> ListAsync(DriverListInput input, CancellationToken cancellationToken = default(CancellationToken))
         {
             Guard.NotNull(input, nameof(input));
 
-            return GetRequestAsync<ModelCollection<Driver>>(input, cancellationToken);
+            return GetRequestAsync<ApiList<Driver>>(input, cancellationToken);
         }
     }
 }

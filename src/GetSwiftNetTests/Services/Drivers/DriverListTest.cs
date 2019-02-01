@@ -1,43 +1,74 @@
 ﻿namespace GetSwiftNet.Tests
 {
-    using System.Linq;
     using System.Threading.Tasks;
     using Shouldly;
 
-    public class DriverListTest : AsyncTestMethod<DriverListInput, ModelCollection<Driver>>
+    public class DriverListTest : AsyncTestMethod<DriverListInput, ApiList<Driver>>
     {
         public DriverListTest(DriverApiFilter filter)
         {
             Filter = filter;
         }
 
-        public DriverApiFilter Filter { get; }
+        private DriverApiFilter Filter { get; }
 
         private DriverService Service { get; set; }
 
-        public override ModelCollection<Driver> Act(DriverListInput input)
+        public override ApiList<Driver> Act()
         {
-            return Service.List(input);
+            return Service.List(Input);
         }
 
-        public override Task<ModelCollection<Driver>> ActAsync(DriverListInput input)
+        public override Task<ApiList<Driver>> ActAsync()
         {
-            return Service.ListAsync(input);
+            return Service.ListAsync(Input);
         }
 
-        public override DriverListInput Arrange()
+        public override bool Arrange()
         {
+            if (!TestConstants.HasDrivers)
+            {
+                return false;
+            }
+
             Service = new DriverService(TestConstants.ApiKey);
-
-            return new DriverListInput
+            Input = new DriverListInput
             {
                 Filter = Filter
             };
+
+            return true;
         }
 
-        public override void Assert(DriverListInput input, ModelCollection<Driver> actual)
+        public override void Assert(ApiList<Driver> actual)
         {
-            base.Assert(input, actual);
+            base.Assert(actual);
+
+            actual.Data.ShouldNotBeNull();
+
+            var assert = CreateAssert(Filter);
+            assert.Assert(actual);
+        }
+
+        private static IDriverListTestAssert CreateAssert(DriverApiFilter filter)
+        {
+            switch (filter)
+            {
+                case DriverApiFilter.Activated:
+                    return new DriverListActivatedTest();
+
+                case DriverApiFilter.Deactivated:
+                    return new DriverListDeactivatedTest();
+
+                case DriverApiFilter.Invited:
+                    return new DriverListInvitedTest();
+
+                case DriverApiFilter.OnlineNow:
+                    return new DriverListOnlineNowTest();
+
+                default:
+                    return new DriverListAllTest();
+            }
         }
     }
 }

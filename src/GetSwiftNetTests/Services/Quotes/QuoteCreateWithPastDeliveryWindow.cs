@@ -8,30 +8,29 @@
     {
         private QuoteService Service { get; set; }
 
-        public override GetSwiftException Act(QuoteCreateInput input)
+        public override GetSwiftException Act()
         {
-            return Should.Throw<GetSwiftException>(() => Service.Create(input));
+            return Should.Throw<GetSwiftException>(() => Service.Create(Input));
         }
 
-        public override Task<GetSwiftException> ActAsync(QuoteCreateInput input)
+        public override Task<GetSwiftException> ActAsync()
         {
-            return Should.ThrowAsync<GetSwiftException>(() => Service.CreateAsync(input));
+            return Should.ThrowAsync<GetSwiftException>(() => Service.CreateAsync(Input));
         }
 
-        public override QuoteCreateInput Arrange()
+        public override bool Arrange()
         {
             Service = new QuoteService(TestConstants.ApiKey);
 
-            var input = new QuoteCreateInput("57 luscombe st, brunswick, melbourne", "105 collins st, 3000");
+            Input = new QuoteCreateInput("57 luscombe st, brunswick, melbourne", "105 collins st, 3000");
+            Input.Booking.DropoffWindow = TimeFrame.Create(DateTime.Now.AddDays(-100), DateTime.Now);
 
-            input.Booking.DropoffWindow = TimeFrame.Create(DateTime.Now.AddDays(-100), DateTime.Now);
-
-            return input;
+            return true;
         }
 
-        public override void Assert(QuoteCreateInput input, GetSwiftException actual)
+        public override void Assert(GetSwiftException actual)
         {
-            base.Assert(input, actual);
+            base.Assert(actual);
 
             actual.Response.ErrorCode.ShouldBe(ErrorCode.PastDeliveryWindow);
         }

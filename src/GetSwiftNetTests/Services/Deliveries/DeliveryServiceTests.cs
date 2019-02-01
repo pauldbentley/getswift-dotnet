@@ -29,15 +29,27 @@
         }
 
         [Fact]
-        public void CancelInvalidJob()
+        public void CancelFinishedJob()
         {
-            new DeliveryCancelInvalidJobTest().Run();
+            new DeliveryCancelFinishedJob().Run();
         }
 
         [Fact]
-        public void CancelInvalidJobAsync()
+        public void CancelFinishedJobAsync()
         {
-            new DeliveryCancelInvalidJobTest().RunAsync();
+            new DeliveryCancelFinishedJob().RunAsync();
+        }
+
+        [Fact]
+        public void CancelWithInvalidId()
+        {
+            new DeliveryCancelWithInvalidIdTest().Run();
+        }
+
+        [Fact]
+        public void CancelWithInvalidIdAsync()
+        {
+            new DeliveryCancelWithInvalidIdTest().RunAsync();
         }
     }
 }

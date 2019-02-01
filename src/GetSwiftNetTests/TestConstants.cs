@@ -10,13 +10,58 @@
         public static Guid ApiKey { get; }
 
         /// <summary>
+        /// Gets a value indicating whether the merchant defined by <see cref="ApiKey"/> is a service based marchant.
+        /// </summary>
+        public static bool ServiceBasedMarchant { get; }
+
+        /// <summary>
         /// Gets the identifier for a valid driver.
         /// </summary>
-        public static Guid DriverId { get; }
+        public static Guid? DriverId { get; }
 
         /// <summary>
         /// Gets the identifier for a valid delivery.
         /// </summary>
-        public static Guid DeliveryId { get; }
+        public static Guid? DeliveryId { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether the delivery defined by <see cref=" DeliveryId"/> has contraints.
+        /// </summary>
+        public static bool DeliveryHasContraints { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether the delivery defined by <see cref=" DeliveryId"/> has items.
+        /// </summary>
+        public static bool DeliveryHasItems { get; }
+
+        /// <summary>
+        /// Gets the identifier for a finished delivery.
+        /// </summary>
+        public static Guid? FinishedDeliveryId { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether there are drivers in the system.
+        /// </summary>
+        public static bool HasDrivers { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether there are activated drivers in the system.
+        /// </summary>
+        public static bool HasActivatedDrivers { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether there are deactivated drivers in the system.
+        /// </summary>
+        public static bool HasDeactivatedDrivers { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether there are invited drivers in the system.
+        /// </summary>
+        public static bool HasInvitedDrivers { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether there are online drivers in the system.
+        /// </summary>
+        public static bool HasOnlineDrivers { get; }
     }
 }

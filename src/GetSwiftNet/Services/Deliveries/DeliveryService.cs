@@ -57,6 +57,31 @@
         }
 
         /// <summary>
+        /// Gets a list of deliveries.
+        /// </summary>
+        /// <param name="input">The input required to list deliveries.</param>
+        /// <returns>A <see cref="PagedApiList{T}"/> of <see cref="DeliveryDetails"/> objects.</returns>
+        public PagedApiList<DeliveryDetails> List(DeliveryListInput input)
+        {
+            Guard.NotNull(input, nameof(input));
+
+            return GetRequest<PagedApiList<DeliveryDetails>>(input);
+        }
+
+        /// <summary>
+        /// Gets a list of deliveries.
+        /// </summary>
+        /// <param name="input">The input required to list deliveries.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>A <see cref="PagedApiList{T}"/> of <see cref="DeliveryDetails"/> objects.</returns>
+        public Task<PagedApiList<DeliveryDetails>> ListAsync(DeliveryListInput input, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            Guard.NotNull(input, nameof(input));
+
+            return GetRequestAsync<PagedApiList<DeliveryDetails>>(input, cancellationToken);
+        }
+
+        /// <summary>
         /// Cancels an active delivery.
         /// </summary>
         /// <param name="input">The input required to cancel a delivery.</param>
@@ -69,7 +94,7 @@
         }
 
         /// <summary>
-        /// Cancels an active delivery.
+        /// Cancels an active delivery asynchronously.
         /// </summary>
         /// <param name="input">The input required to cancel a delivery.</param>
         /// <param name="cancellationToken">The cancellation token.</param>

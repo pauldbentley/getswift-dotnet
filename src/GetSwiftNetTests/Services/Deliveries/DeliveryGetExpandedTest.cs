@@ -3,45 +3,53 @@
     using System.Threading.Tasks;
     using Shouldly;
 
-    /// <summary>
-    /// Tests the Expand properties.
-    /// The delivery tested should have items and contraints otherwise it will fail.
-    /// </summary>
     public class DeliveryGetExpandedTest : AsyncTestMethod<DeliveryGetInput, DeliveryDetails>
     {
         private DeliveryService Service { get; set; }
 
-        public override DeliveryDetails Act(DeliveryGetInput input)
+        public override DeliveryDetails Act()
         {
-            return Service.Get(input);
+            return Service.Get(Input);
         }
 
-        public override Task<DeliveryDetails> ActAsync(DeliveryGetInput input)
+        public override Task<DeliveryDetails> ActAsync()
         {
-            return Service.GetAsync(input);
+            return Service.GetAsync(Input);
         }
 
-        public override DeliveryGetInput Arrange()
+        public override bool Arrange()
         {
+            if (!TestConstants.DeliveryId.HasValue)
+            {
+                return false;
+            }
+
             Service = new DeliveryService(TestConstants.ApiKey);
-
-            return new DeliveryGetInput(TestConstants.DeliveryId)
+            Input = new DeliveryGetInput(TestConstants.DeliveryId.Value)
             {
                 ExpandStageHistory = true,
-                ExpandConstraints = true,
-                ExpandItems = true
+                ExpandConstraints = TestConstants.DeliveryHasContraints,
+                ExpandItems = TestConstants.DeliveryHasItems
             };
+
+            return true;
         }
 
-        public override void Assert(DeliveryGetInput input, DeliveryDetails actual)
+        public override void Assert(DeliveryDetails actual)
         {
-            base.Assert(input, actual);
+            base.Assert(actual);
 
             actual.StageHistory.ShouldNotBeEmpty();
 
-            actual.Items.ShouldNotBeEmpty();
+            if (Input.ExpandItems)
+            {
+                actual.Items.ShouldNotBeEmpty();
+            }
 
-            actual.Constraints.ShouldNotBeEmpty();
+            if (Input.ExpandConstraints)
+            {
+                actual.Constraints.ShouldNotBeEmpty();
+            }
         }
     }
 }

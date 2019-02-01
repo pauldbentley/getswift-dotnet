@@ -3,34 +3,36 @@
     using System.Threading.Tasks;
     using Shouldly;
 
-    /// <summary>
-    /// Tests that there is is pickup address defined.
-    /// This will fail for service based marchants where a pickup address isn't required.
-    /// </summary>
     public class QuoteCreateWithNoPickupTest : AsyncTestMethod<QuoteCreateInput, GetSwiftException>
     {
         private QuoteService Service { get; set; }
 
-        public override GetSwiftException Act(QuoteCreateInput input)
+        public override GetSwiftException Act()
         {
-            return Should.Throw<GetSwiftException>(() => Service.Create(input));
+            return Should.Throw<GetSwiftException>(() => Service.Create(Input));
         }
 
-        public override Task<GetSwiftException> ActAsync(QuoteCreateInput input)
+        public override Task<GetSwiftException> ActAsync()
         {
-            return Should.ThrowAsync<GetSwiftException>(() => Service.CreateAsync(input));
+            return Should.ThrowAsync<GetSwiftException>(() => Service.CreateAsync(Input));
         }
 
-        public override QuoteCreateInput Arrange()
+        public override bool Arrange()
         {
+            if (TestConstants.ServiceBasedMarchant)
+            {
+                return false;
+            }
+
             Service = new QuoteService(TestConstants.ApiKey);
+            Input = new QuoteCreateInput("105 collins st, 3000");
 
-            return new QuoteCreateInput("105 collins st, 3000");
+            return true;
         }
 
-        public override void Assert(QuoteCreateInput input, GetSwiftException actual)
+        public override void Assert(GetSwiftException actual)
         {
-            base.Assert(input, actual);
+            base.Assert(actual);
 
             actual.Response.ErrorCode.ShouldBe(ErrorCode.InvalidPickupAddress);
         }

@@ -38,6 +38,15 @@
         /// <returns>An object populated from the JSON with the service response allocated.</returns>
         public static T MapFromJson(string json, ServiceResponse response)
         {
+            var type = typeof(T);
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(ApiList<>))
+            {
+                // The JSON will be an array of the object
+                // we want to add in the "data" element
+                // so that it is deserialized correctly
+                json = "{ \"data\": " + json + " }";
+            }
+
             var model = JsonConvert.DeserializeObject<T>(json, GetSwiftConfiguration.SerializerSettings);
 
             // save the response to the result for reference

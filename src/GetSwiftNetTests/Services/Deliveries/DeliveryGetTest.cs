@@ -7,41 +7,36 @@
     {
         private DeliveryService Service { get; set; }
 
-        public override DeliveryDetails Act(DeliveryGetInput input)
+        public override DeliveryDetails Act()
         {
-            return Service.Get(input);
+            return Service.Get(Input);
         }
 
-        public override Task<DeliveryDetails> ActAsync(DeliveryGetInput input)
+        public override Task<DeliveryDetails> ActAsync()
         {
-            return Service.GetAsync(input);
+            return Service.GetAsync(Input);
         }
 
-        public override DeliveryGetInput Arrange()
+        public override bool Arrange()
         {
+            if (!TestConstants.DeliveryId.HasValue)
+            {
+                return false;
+            }
+
             Service = new DeliveryService(TestConstants.ApiKey);
+            Input = new DeliveryGetInput(TestConstants.DeliveryId.Value);
 
-            return new DeliveryGetInput(TestConstants.DeliveryId);
+            return true;
         }
 
-        public override void Assert(DeliveryGetInput input, DeliveryDetails actual)
+        public override void Assert(DeliveryDetails actual)
         {
-            base.Assert(input, actual);
+            base.Assert(actual);
 
-            if (!input.ExpandStageHistory)
-            {
-                actual.StageHistory.ShouldBeEmpty();
-            }
-
-            if (!input.ExpandConstraints)
-            {
-                actual.Constraints.ShouldBeEmpty();
-            }
-
-            if (!input.ExpandItems)
-            {
-                actual.Items.ShouldBeEmpty();
-            }
+            actual.StageHistory.ShouldBeEmpty();
+            actual.Constraints.ShouldBeEmpty();
+            actual.Items.ShouldBeEmpty();
         }
     }
 }
