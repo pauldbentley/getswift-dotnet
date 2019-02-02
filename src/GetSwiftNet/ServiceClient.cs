@@ -6,6 +6,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
     using RestSharp;
 
     /// <summary>
@@ -115,17 +116,24 @@
             if (data != null)
             {
                 request.AddHeader("Content-type", "application/json");
+                string json = JsonConvert.SerializeObject(data, GetSwiftConfiguration.SerializerSettings);
 
                 if (method == Method.POST)
                 {
-                    // for post we serialize to JSON
-                    string json = JsonConvert.SerializeObject(data, GetSwiftConfiguration.SerializerSettings);
+                    // for POST we add the JSON directly to the body
                     request.AddParameter("text/json", json, ParameterType.RequestBody);
                 }
                 else
                 {
-                    // for get we add a query string parameters
-                    request.AddObject(data);
+                    // for GET we add a query string parameters
+                    // We serialize the JSON back to a JObject, so
+                    // the SerializerSettings are followed
+                    var jObject = (JObject)JsonConvert.DeserializeObject(json, GetSwiftConfiguration.SerializerSettings);
+
+                    foreach (var property in jObject)
+                    {
+                        request.AddParameter(property.Key, property.Value);
+                    }
 
                     // expandable
                     var expandables = ExpandableMapper.MapFromObject(data)
