@@ -7,7 +7,7 @@
     /// <summary>
     /// The details of a dlivery.
     /// </summary>
-    public class DeliveryDetails
+    public sealed class DeliveryDetails
     {
         [JsonConstructor]
         private DeliveryDetails(DateTime created, Guid id, string reference, LocationApi pickupLocation, LocationApi dropoffLocation, DateTime lastUpdated, string currentStatus, Driver driver, DateTime? pickupTime, TimeFrame dropoffTime, string deliveryInstructions, string customerReference, TrackingUrls trackingUrls, ProofOfDelivery proofOfDelivery, decimal driverTip, decimal deliveryFee, Distance estimatedDistance)

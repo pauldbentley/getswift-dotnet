@@ -8,7 +8,7 @@
     /// Defines an error returned by the GetSwift server.
     /// </summary>
     [DebuggerDisplay("{" + nameof(DebuggerDisplay) + "()}")]
-    public class ErrorMessage : IEquatable<ErrorMessage>
+    public sealed class ErrorMessage : IEquatable<ErrorMessage>
     {
         [JsonConstructor]
         private ErrorMessage(string message, string code)
