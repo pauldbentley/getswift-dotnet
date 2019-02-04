@@ -162,20 +162,26 @@
         {
             // All validation and other error messages are returned through the 400 Bad request.
             // The response will include an error code as well as a message describing the error
-            // There may be a message with no code, or there may be no error at all
-            var error = ObjectMapper<ErrorMessage>.MapFromJson(response.Content);
-
-            // If we have a message from the response this is what we use on the error
-            // otherwise we will use the error messages on the REST response
-            // otherwise we will use the status description on the exception
-            // See: https://app.getswift.co/apidocs/intro#toc-http-error-codes
-            string message = error?.Message ?? response.ErrorMessage ?? response.StatusDescription;
+            // There may be a message with no code, or there may be no error at all in the JSON.
+            var error = response.StatusCode == HttpStatusCode.BadRequest
+                ? ObjectMapper<ErrorMessage>.MapFromJson(response.Content)
+                : null;
 
             var errorCode = ErrorCode.TryParseFromName(error?.Code, out ErrorCode result)
                 ? result
                 : error != null ? ErrorCode.Unknown : ErrorCode.None; // if there is no error code then we are Unknown, otherwise there is no error
 
             var serviceResponse = new ServiceResponse(response, errorCode);
+
+            // We may get a TooManyRequests error
+            // in this case the response.Content contains the error message
+            // If we have a message from the response this is what we use on the error
+            // otherwise we will use the error messages on the REST response
+            // otherwise we will use the status description on the exception
+            // See: https://app.getswift.co/apidocs/intro#toc-http-error-codes
+            string message = response.StatusCode == (HttpStatusCode)429
+                ? response.Content
+                : error?.Message ?? response.ErrorMessage ?? response.StatusDescription;
 
             return new GetSwiftException(message, response.ErrorException, serviceResponse);
         }
