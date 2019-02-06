@@ -51,5 +51,25 @@
         {
             new DeliveryCancelWithInvalidIdTest().RunAsync();
         }
+
+        [Theory]
+        [InlineData(DeliveryApiFilter.Active)]
+        [InlineData(DeliveryApiFilter.All)]
+        [InlineData(DeliveryApiFilter.Cancelled)]
+        [InlineData(DeliveryApiFilter.Successful)]
+        public void List(DeliveryApiFilter filter)
+        {
+            new DeliveryListTest(filter).Run();
+        }
+
+        [Theory]
+        [InlineData(DeliveryApiFilter.Active)]
+        [InlineData(DeliveryApiFilter.All)]
+        [InlineData(DeliveryApiFilter.Cancelled)]
+        [InlineData(DeliveryApiFilter.Successful)]
+        public void ListAsync(DeliveryApiFilter filter)
+        {
+            new DeliveryListTest(filter).RunAsync();
+        }
     }
 }

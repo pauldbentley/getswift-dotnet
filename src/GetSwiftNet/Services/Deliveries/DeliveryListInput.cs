@@ -10,7 +10,7 @@
         /// <summary>
         /// Gets or sets the merchant API key.
         /// </summary>
-        public string ApiKey { get; set; }
+        public Guid? ApiKey { get; set; }
 
         /// <summary>
         /// Gets or sets the delivery filter, e.g. to show only current orders.

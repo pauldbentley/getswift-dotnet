@@ -63,5 +63,25 @@
         /// Gets a value indicating whether there are online drivers in the system.
         /// </summary>
         public static bool HasOnlineDrivers { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether there are deliveries in the system.
+        /// </summary>
+        public static bool HasDeliveries { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether there are active deliveries in the system.
+        /// </summary>
+        public static bool HasActiveDeliveries { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether there are successful deliveries in the system.
+        /// </summary>
+        public static bool HasSuccessfulDeliveries { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether there are cancelled deliveries in the system.
+        /// </summary>
+        public static bool HasCancelledDeliveries { get; }
     }
 }

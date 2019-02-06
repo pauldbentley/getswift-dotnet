@@ -25,8 +25,8 @@
         public IEnumerable<T> Data { get; }
 
         /// <summary>
-        /// Gets the response sent by the server.
+        /// Gets or sets the response sent by the server.
         /// </summary>
-        public ServiceResponse Response { get; private set; }
+        public ServiceResponse Response { get; protected set; }
     }
 }
