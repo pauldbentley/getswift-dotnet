@@ -6,10 +6,10 @@
         <AssemblyName>GetSwift.net</AssemblyName>
         <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
         <RootNamespace>GetSwiftNet</RootNamespace>
-        <Version>0.0.2</Version>
+        <Version>0.0.3</Version>
         <CodeAnalysisRuleSet>..\_analyzers\GetSwiftNet.ruleset</CodeAnalysisRuleSet>
-        <AssemblyVersion>0.0.2.0</AssemblyVersion>
-        <FileVersion>0.0.2.0</FileVersion>
+        <AssemblyVersion>0.0.3.0</AssemblyVersion>
+        <FileVersion>0.0.3.0</FileVersion>
         <Authors>Paul Bentley</Authors>
         <RepositoryUrl>https://github.com/pauldbentley/getswift-dotnet</RepositoryUrl>
         <PackageProjectUrl>https://www.getswift.co/</PackageProjectUrl>
@@ -18,12 +18,9 @@
         <RepositoryType>github</RepositoryType>
         <PackageTags>getswift</PackageTags>
         <PackageIconUrl>https://raw.githubusercontent.com/pauldbentley/getswift-dotnet/master/src/GetSwiftNet/getswift.png</PackageIconUrl>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-        <DocumentationFile>bin\Debug\netstandard2.0\GetSwiftNet.xml</DocumentationFile>
-    </PropertyGroup>
-
+    
     <ItemGroup>
         <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
         <PackageReference Include="RestSharp" Version="106.6.7" />
