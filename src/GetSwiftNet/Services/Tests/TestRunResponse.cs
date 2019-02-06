@@ -1,9 +1,11 @@
 ﻿namespace GetSwiftNet
 {
+    using GetSwiftNet.Infrastructure;
+
     /// <summary>
     /// Defines the response from a test run.
     /// </summary>
-    public class TestRunResponse
+    internal class TestRunResponse
     {
         /// <summary>
         /// Gets or sets a value indicating whether the test succeeded.

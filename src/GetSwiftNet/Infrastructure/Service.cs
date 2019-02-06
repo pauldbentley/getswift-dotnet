@@ -1,4 +1,4 @@
-﻿namespace GetSwiftNet
+﻿namespace GetSwiftNet.Infrastructure
 {
     using System;
     using System.Threading;

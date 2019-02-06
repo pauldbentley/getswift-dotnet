@@ -1,5 +1,7 @@
 ﻿namespace GetSwiftNet
 {
+    using GetSwiftNet.Infrastructure;
+
     /// <summary>
     /// All possible error codes returned by GetSwift.
     /// </summary>

@@ -3,7 +3,7 @@
     using System;
     using Shouldly;
 
-    public class TestApiKeyFromConfigurationTest : TestMethod<TestRunInput, TestRunResponse>
+    internal class TestApiKeyFromConfigurationTest : TestMethod<TestRunInput, TestRunResponse>
     {
         private static Guid ConfigurationApiKey { get; } = new Guid("00000000-0000-0000-0000-000000000001");
 

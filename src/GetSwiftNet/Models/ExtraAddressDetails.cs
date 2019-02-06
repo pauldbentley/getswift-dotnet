@@ -1,6 +1,7 @@
 ﻿namespace GetSwiftNet
 {
     using System;
+    using GetSwiftNet.Infrastructure;
     using Newtonsoft.Json;
 
     /// <summary>

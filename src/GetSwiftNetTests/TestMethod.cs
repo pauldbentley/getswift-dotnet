@@ -2,6 +2,7 @@
 {
     using System;
     using System.Net;
+    using GetSwiftNet.Infrastructure;
     using Shouldly;
 
     /// <summary>

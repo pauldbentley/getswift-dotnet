@@ -3,11 +3,12 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using GetSwiftNet.Infrastructure;
 
     /// <summary>
     /// A test service.
     /// </summary>
-    public class TestService : Service
+    internal class TestService : Service
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TestService"/> class.

@@ -2,6 +2,7 @@
 {
     using System.Collections;
     using System.Collections.Generic;
+    using GetSwiftNet.Infrastructure;
     using Newtonsoft.Json;
 
 #pragma warning disable CA1710

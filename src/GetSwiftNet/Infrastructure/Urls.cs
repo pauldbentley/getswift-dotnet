@@ -1,11 +1,11 @@
-﻿namespace GetSwiftNet
+﻿namespace GetSwiftNet.Infrastructure
 {
     using System;
 
     /// <summary>
     /// Defines the GetSwift service URLs.
     /// </summary>
-    public static class Urls
+    internal static class Urls
     {
         /// <summary>
         /// Gets the default base url to the service.

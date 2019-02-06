@@ -3,6 +3,7 @@
     using System;
     using System.Runtime.Serialization;
     using System.Security.Permissions;
+    using GetSwiftNet.Infrastructure;
 
     /// <summary>
     /// Represents errors that occur when accessing the GetSwift server.
