@@ -17,6 +17,7 @@
         <PackageLicenseUrl>https://github.com/pauldbentley/getswift-dotnet/blob/master/LICENSE</PackageLicenseUrl>
         <RepositoryType>github</RepositoryType>
         <PackageTags>getswift</PackageTags>
+        <PackageIconUrl>https://raw.githubusercontent.com/pauldbentley/getswift-dotnet/master/src/GetSwiftNet/getswift.png</PackageIconUrl>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
