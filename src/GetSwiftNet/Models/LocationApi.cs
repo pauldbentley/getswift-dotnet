@@ -68,10 +68,7 @@
         /// Calculates the hash code for the current <see cref="LocationApi"/> instance.
         /// </summary>
         /// <returns>The hash code for the current <see cref="LocationApi"/> instance.</returns>
-        public override int GetHashCode()
-        {
-            return (Name, Address, Phone, Postcode, Suburb).GetHashCode();
-        }
+        public override int GetHashCode() => new { Name, Address, Phone, Postcode, Suburb }.GetHashCode();
 
         private string DebuggerDisplay() => Address;
     }

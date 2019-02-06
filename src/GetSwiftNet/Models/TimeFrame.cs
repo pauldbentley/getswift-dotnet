@@ -63,10 +63,7 @@
         /// Calculates the hash code for the current <see cref="TimeFrame"/> instance.
         /// </summary>
         /// <returns>The hash code for the current <see cref="TimeFrame"/> instance.</returns>
-        public override int GetHashCode()
-        {
-            return (EarliestTime, LatestTime).GetHashCode();
-        }
+        public override int GetHashCode() => new { EarliestTime, LatestTime }.GetHashCode();
 
         private string DebuggerDisplay() => $"{EarliestTime} > {LatestTime}";
     }

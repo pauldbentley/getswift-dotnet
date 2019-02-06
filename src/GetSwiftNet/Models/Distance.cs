@@ -50,10 +50,7 @@
         /// Calculates the hash code for the current <see cref="Distance"/> instance.
         /// </summary>
         /// <returns>The hash code for the current <see cref="Distance"/> instance.</returns>
-        public override int GetHashCode()
-        {
-            return (Kilometres, Miles).GetHashCode();
-        }
+        public override int GetHashCode() => new { Kilometres, Miles }.GetHashCode();
 
         private string DebuggerDisplay() => $"{Kilometres} Kilometres, {Miles} Miles";
     }

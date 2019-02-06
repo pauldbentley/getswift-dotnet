@@ -36,7 +36,7 @@
                 .GetType()
                 .GetRuntimeProperty(ApiKeyPropertyName);
 
-            return property.PropertyType == typeof(Guid?)
+            return property != null && property.PropertyType == typeof(Guid?)
                 ? property
                 : null;
         }

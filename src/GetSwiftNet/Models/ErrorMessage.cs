@@ -50,10 +50,7 @@
         /// Calculates the hash code for the current <see cref="ErrorMessage"/> instance.
         /// </summary>
         /// <returns>The hash code for the current <see cref="ErrorMessage"/> instance.</returns>
-        public override int GetHashCode()
-        {
-            return (Message, Code).GetHashCode();
-        }
+        public override int GetHashCode() => new { Message, Code }.GetHashCode();
 
         private string DebuggerDisplay() => Message ?? Code;
     }

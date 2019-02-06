@@ -160,10 +160,7 @@
         /// Calculates the hash code for the current <see cref="DeliveryEventWebhook"/> instance.
         /// </summary>
         /// <returns>The hash code for the current <see cref="DeliveryEventWebhook"/> instance.</returns>
-        public override int GetHashCode()
-        {
-            return (Description, StockKeepingUnit, Quantity, Price).GetHashCode();
-        }
+        public override int GetHashCode() => new { Description, StockKeepingUnit, Quantity, Price }.GetHashCode();
 
         private static Exception ValidateDescription(string description)
         {

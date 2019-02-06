@@ -73,9 +73,6 @@
         /// Calculates the hash code for the current <see cref="Quote"/> instance.
         /// </summary>
         /// <returns>The hash code for the current <see cref="Quote"/> instance.</returns>
-        public override int GetHashCode()
-        {
-            return (Created, DistanceKm, Fee, Pickup, Dropoff).GetHashCode();
-        }
+        public override int GetHashCode() => new { Created, DistanceKm, Fee, Pickup, Dropoff }.GetHashCode();
     }
 }

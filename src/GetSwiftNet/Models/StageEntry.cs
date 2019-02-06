@@ -56,10 +56,7 @@
         /// Calculates the hash code for the current <see cref="StageEntry"/> instance.
         /// </summary>
         /// <returns>The hash code for the current <see cref="StageEntry"/> instance.</returns>
-        public override int GetHashCode()
-        {
-            return (Created, Stage, Notes).GetHashCode();
-        }
+        public override int GetHashCode() => new { Created, Stage, Notes }.GetHashCode();
 
         private string DebuggerDisplay() => Stage;
     }

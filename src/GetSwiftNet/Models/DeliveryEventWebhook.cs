@@ -118,10 +118,7 @@
         /// Calculates the hash code for the current <see cref="DeliveryEventWebhook"/> instance.
         /// </summary>
         /// <returns>The hash code for the current <see cref="DeliveryEventWebhook"/> instance.</returns>
-        public override int GetHashCode()
-        {
-            return (EventName, Url).GetHashCode();
-        }
+        public override int GetHashCode() => new { EventName, Url }.GetHashCode();
 
         private static Exception ValidateEventName(string value)
         {

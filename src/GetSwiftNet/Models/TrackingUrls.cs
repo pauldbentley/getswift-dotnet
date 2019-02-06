@@ -48,9 +48,6 @@
         /// Calculates the hash code for the current <see cref="TrackingUrls"/> instance.
         /// </summary>
         /// <returns>The hash code for the current <see cref="TrackingUrls"/> instance.</returns>
-        public override int GetHashCode()
-        {
-            return (Www, Api).GetHashCode();
-        }
+        public override int GetHashCode() => new { Www, Api }.GetHashCode();
     }
 }

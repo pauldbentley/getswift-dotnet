@@ -89,10 +89,7 @@
         /// Calculates the hash code for the current <see cref="JobConstraint"/> instance.
         /// </summary>
         /// <returns>The hash code for the current <see cref="JobConstraint"/> instance.</returns>
-        public override int GetHashCode()
-        {
-            return (Name, Value).GetHashCode();
-        }
+        public override int GetHashCode() => new { Name, Value }.GetHashCode();
 
         private static Exception ValidateName(string name)
         {

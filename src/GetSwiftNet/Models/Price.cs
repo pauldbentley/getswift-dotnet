@@ -50,10 +50,7 @@
         /// Calculates the hash code for the current <see cref="Price"/> instance.
         /// </summary>
         /// <returns>The hash code for the current <see cref="Price"/> instance.</returns>
-        public override int GetHashCode()
-        {
-            return (Cost, CostCents).GetHashCode();
-        }
+        public override int GetHashCode() => new { Cost, CostCents }.GetHashCode();
 
         private decimal DebuggerDisplay() => Cost;
     }

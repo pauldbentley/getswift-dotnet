@@ -51,10 +51,7 @@
         /// Calculates the hash code for the current <see cref="QuoteLocationDetail"/> instance.
         /// </summary>
         /// <returns>The hash code for the current <see cref="QuoteLocationDetail"/> instance.</returns>
-        public override int GetHashCode()
-        {
-            return (Time, Address).GetHashCode();
-        }
+        public override int GetHashCode() => new { Time, Address }.GetHashCode();
 
         private string DebuggerDisplay()
         {

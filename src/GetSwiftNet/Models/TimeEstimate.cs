@@ -54,9 +54,6 @@
         /// Calculates the hash code for the current <see cref="TimeEstimate"/> instance.
         /// </summary>
         /// <returns>The hash code for the current <see cref="TimeEstimate"/> instance.</returns>
-        public override int GetHashCode()
-        {
-            return (Average, Earliest, Latest).GetHashCode();
-        }
+        public override int GetHashCode() => new { Average, Earliest, Latest }.GetHashCode();
     }
 }
