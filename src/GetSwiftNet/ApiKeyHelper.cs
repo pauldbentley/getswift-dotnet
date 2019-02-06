@@ -1,7 +1,6 @@
 ﻿namespace GetSwiftNet
 {
     using System;
-    using System.Linq;
     using System.Reflection;
 
     /// <summary>
@@ -35,12 +34,11 @@
             // find the ApiKey property on the value
             var property = value
                 .GetType()
-                .GetRuntimeProperties()
-                .Where(t => t.PropertyType == typeof(Guid?))
-                .Where(t => string.Equals(ApiKeyPropertyName, t.Name, StringComparison.OrdinalIgnoreCase))
-                .FirstOrDefault();
+                .GetRuntimeProperty(ApiKeyPropertyName);
 
-            return property;
+            return property.PropertyType == typeof(Guid?)
+                ? property
+                : null;
         }
 
         private static void SetApiKeyProperty(PropertyInfo property, object value, Guid? apiKey)

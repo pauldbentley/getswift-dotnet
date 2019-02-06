@@ -103,10 +103,7 @@
                 return null;
             }
 
-            // find the first property of the response type
-            var property = value.GetType().GetRuntimeProperties()
-                .Where(t => t.PropertyType == typeof(ServiceResponse))
-                .FirstOrDefault();
+            var property = GetResponseProperty(value);
 
             return property != null
                 ? property.GetValue(value) as ServiceResponse
@@ -124,15 +121,24 @@
                 return;
             }
 
-            // find the first property of the response type
-            var property = value.GetType().GetRuntimeProperties()
-                .Where(t => t.PropertyType == typeof(ServiceResponse))
-                .FirstOrDefault();
+            var property = GetResponseProperty(value);
 
             if (property != null)
             {
                 property.SetValue(value, this);
             }
+        }
+
+        private static PropertyInfo GetResponseProperty(object value)
+        {
+            // find the first property of the response type
+            var property = value
+                .GetType()
+                .GetRuntimeProperties()
+                .Where(t => t.PropertyType == typeof(ServiceResponse))
+                .FirstOrDefault();
+
+            return property;
         }
 
         private string DebuggerDisplay()
