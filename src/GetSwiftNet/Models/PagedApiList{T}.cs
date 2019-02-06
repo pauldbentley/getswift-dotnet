@@ -8,11 +8,10 @@
     /// A paged list of objects returned from the API service.
     /// </summary>
     /// <typeparam name="T">The type of elements in the list.</typeparam>
-    public class PagedApiList<T> : ApiList<T>
+    public class PagedApiList<T>
     {
         [JsonConstructor]
         private PagedApiList(int currentPage, int pageCount, int pageSize, int totalCount, Uri firstPageUrl, Uri previousPageUrl, Uri nextPageUrl, Uri lastPageUrl, List<T> data)
-            : base(data)
         {
             CurrentPage = currentPage;
             PageCount = pageCount;
@@ -22,6 +21,7 @@
             PreviousPageUrl = previousPageUrl;
             NextPageUrl = nextPageUrl;
             LastPageUrl = lastPageUrl;
+            Data = data;
         }
 
         /// <summary>
@@ -63,5 +63,15 @@
         /// Gets the <see cref="Uri"/> to the last page.
         /// </summary>
         public Uri LastPageUrl { get; }
+
+        /// <summary>
+        /// Gets the data.
+        /// </summary>
+        public IEnumerable<T> Data { get; }
+
+        /// <summary>
+        /// Gets the response sent by the server.
+        /// </summary>
+        public ServiceResponse Response { get; private set; }
     }
 }

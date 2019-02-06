@@ -8,7 +8,7 @@
         {
             if (TestConstants.HasInvitedDrivers)
             {
-                actual.Data.ShouldNotBeEmpty();
+                actual.ShouldNotBeEmpty();
             }
         }
     }

@@ -8,7 +8,7 @@
         {
             if (TestConstants.HasActivatedDrivers)
             {
-                actual.Data.ShouldNotBeEmpty();
+                actual.ShouldNotBeEmpty();
             }
         }
     }

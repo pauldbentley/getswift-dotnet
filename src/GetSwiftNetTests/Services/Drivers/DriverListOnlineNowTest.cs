@@ -8,7 +8,7 @@
         {
             if (TestConstants.HasOnlineDrivers)
             {
-                actual.Data.ShouldNotBeEmpty();
+                actual.ShouldNotBeEmpty();
             }
         }
     }

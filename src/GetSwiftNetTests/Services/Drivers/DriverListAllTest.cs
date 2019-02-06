@@ -6,7 +6,7 @@
     {
         public void Assert(ApiList<Driver> actual)
         {
-            actual.Data.ShouldNotBeEmpty();
+            actual.ShouldNotBeEmpty();
         }
     }
 }

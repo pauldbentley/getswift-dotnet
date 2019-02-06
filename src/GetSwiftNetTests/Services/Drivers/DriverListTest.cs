@@ -44,7 +44,7 @@
         {
             base.Assert(actual);
 
-            actual.Data.ShouldNotBeNull();
+            actual.ShouldNotBeNull();
 
             var assert = CreateAssert(Filter);
             assert.Assert(actual);
