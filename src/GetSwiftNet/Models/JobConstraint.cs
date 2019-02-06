@@ -11,6 +11,16 @@
     [DebuggerDisplay("{" + nameof(DebuggerDisplay) + "()}")]
     public sealed class JobConstraint : IEquatable<JobConstraint>
     {
+        /// <summary>
+        /// The minimum length of the <see cref="Name"/> property.
+        /// </summary>
+        public const int MinNameLength = 1;
+
+        /// <summary>
+        /// The minimum length of the <see cref="Value"/> property.
+        /// </summary>
+        public const int MinValueLength = 1;
+
         [JsonConstructor]
         private JobConstraint(string name, string value)
         {
@@ -94,12 +104,16 @@
 
         private static Exception ValidateName(string name)
         {
-            return Exceptions.WhenNullOrWhitespace(name, nameof(name));
+            return
+                Exceptions.WhenNullOrWhitespace(name, nameof(name)) ??
+                Exceptions.WhenLengthIsIncorrect(name, MinNameLength, int.MaxValue, nameof(name));
         }
 
         private static Exception ValidateValue(string value)
         {
-            return Exceptions.WhenNullOrWhitespace(value, nameof(value));
+            return
+                Exceptions.WhenNullOrWhitespace(value, nameof(value)) ??
+                Exceptions.WhenLengthIsIncorrect(value, MinValueLength, int.MaxValue, nameof(value));
         }
 
         private string DebuggerDisplay() => Name;

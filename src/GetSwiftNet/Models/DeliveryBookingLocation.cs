@@ -12,29 +12,14 @@
     public sealed class DeliveryBookingLocation
     {
         /// <summary>
-        /// The minimum length of the <see cref="Name"/> property.
-        /// </summary>
-        public const int MinNameLength = 1;
-
-        /// <summary>
         /// The maximum length of the <see cref="Name"/> property.
         /// </summary>
         public const int MaxNameLength = 256;
 
         /// <summary>
-        /// The minimum length of the <see cref="Phone"/> property.
-        /// </summary>
-        public const int MinPhoneLength = 1;
-
-        /// <summary>
         /// The maximum length of the <see cref="Phone"/> property.
         /// </summary>
         public const int MaxPhoneLength = 20;
-
-        /// <summary>
-        /// The minimum length of the <see cref="Description"/> property.
-        /// </summary>
-        public const int MinDescriptionLength = 1;
 
         /// <summary>
         /// The maximum length of the <see cref="Description"/> property.
@@ -133,12 +118,6 @@
         public ExtraAddressDetails AdditionalAddressDetails { get; }
 
         /// <summary>
-        /// Implicit operator from <see cref="string"/> to <see cref="DeliveryBookingLocation"/>.
-        /// </summary>
-        /// <param name="address">The address.</param>
-        public static implicit operator DeliveryBookingLocation(string address) => FromString(address);
-
-        /// <summary>
         /// Creates a <see cref="DeliveryBookingLocation"/> with the given address.
         /// </summary>
         /// <param name="address">The address.</param>
@@ -190,14 +169,6 @@
                 ? Outcomes.Success(new DeliveryBookingLocation(name, phone, email, description, address, additionalAddressDetails))
                 : Outcomes.Failure<DeliveryBookingLocation>(errors);
         }
-
-        /// <summary>
-        /// Create a new <see cref="DeliveryBookingLocation"/> with the given address.
-        /// </summary>
-        /// <param name="address">The address</param>
-        /// <returns>A new <see cref="DeliveryBookingLocation"/> with the given address.</returns>
-        /// <exception cref="ArgumentException">If the address is not valid.</exception>
-        public static DeliveryBookingLocation FromString(string address) => Create(address);
 
         /// <summary>
         /// Determines whether the specified name is valid.
@@ -263,14 +234,14 @@
         {
             return
                 (name != null ? Exceptions.WhenNullOrWhitespace(name, nameof(name)) : null) ??
-                Exceptions.WhenLengthIsIncorrect(name, MinNameLength, MaxNameLength, nameof(name));
+                Exceptions.WhenLengthIsIncorrect(name, 0, MaxNameLength, nameof(name));
         }
 
         private static Exception ValidatePhone(string phone)
         {
             return
                 (phone != null ? Exceptions.WhenNullOrWhitespace(phone, nameof(phone)) : null) ??
-                Exceptions.WhenLengthIsIncorrect(phone, MinPhoneLength, MaxPhoneLength, nameof(phone));
+                Exceptions.WhenLengthIsIncorrect(phone, 0, MaxPhoneLength, nameof(phone));
         }
 
         private static Exception ValidateEmail(Email email)
@@ -284,7 +255,7 @@
         {
             return
                 (description != null ? Exceptions.WhenNullOrWhitespace(description, nameof(description)) : null) ??
-                Exceptions.WhenLengthIsIncorrect(description, MinDescriptionLength, MaxDescriptionLength, nameof(description));
+                Exceptions.WhenLengthIsIncorrect(description, 0, MaxDescriptionLength, nameof(description));
         }
 
         private static Exception ValidateAddress(string address)

@@ -11,6 +11,11 @@
     [DebuggerDisplay("{" + nameof(DebuggerDisplay) + "()}")]
     public sealed class DeliveryEventWebhook : IEquatable<DeliveryEventWebhook>
     {
+        /// <summary>
+        /// The maximum length of the <see cref="EventName"/> property.
+        /// </summary>
+        public const int MinEventNameLength = 1;
+
         [JsonConstructor]
         private DeliveryEventWebhook(string eventName, Uri url)
         {
@@ -121,14 +126,16 @@
         /// <returns>The hash code for the current <see cref="DeliveryEventWebhook"/> instance.</returns>
         public override int GetHashCode() => new { EventName, Url }.GetHashCode();
 
-        private static Exception ValidateEventName(string value)
+        private static Exception ValidateEventName(string eventName)
         {
-            return Exceptions.WhenNull(value, nameof(value));
+            return
+                Exceptions.WhenNullOrWhitespace(eventName, nameof(eventName)) ??
+                Exceptions.WhenLengthIsIncorrect(eventName, MinEventNameLength, int.MaxValue, nameof(eventName));
         }
 
-        private static Exception ValidateUrl(string value)
+        private static Exception ValidateUrl(string url)
         {
-            var nullCheck = Exceptions.WhenNullOrWhitespace(value, nameof(value));
+            var nullCheck = Exceptions.WhenNullOrWhitespace(url, nameof(url));
 
             if (nullCheck != null)
             {
@@ -137,7 +144,7 @@
 
             try
             {
-                var uri = new Uri(value);
+                var uri = new Uri(url);
             }
             catch (UriFormatException exception)
             {
@@ -147,9 +154,9 @@
             return null;
         }
 
-        private static Exception ValidateUrl(Uri value)
+        private static Exception ValidateUrl(Uri url)
         {
-            return Exceptions.WhenNull(value, nameof(value));
+            return Exceptions.WhenNull(url, nameof(url));
         }
 
         private string DebuggerDisplay() => EventName;

@@ -12,24 +12,19 @@
     public sealed class DeliveryBookingItem : IEquatable<DeliveryBookingItem>
     {
         /// <summary>
-        /// The maximum length of the <see cref="Description"/> property.
-        /// </summary>
-        public const int MaxDescriptionLength = 250;
-
-        /// <summary>
         /// The minimum length of the <see cref="Description"/> property.
         /// </summary>
         public const int MinDescriptionLength = 1;
 
         /// <summary>
+        /// The maximum length of the <see cref="Description"/> property.
+        /// </summary>
+        public const int MaxDescriptionLength = 250;
+
+        /// <summary>
         /// The maximum length of the <see cref="StockKeepingUnit"/> property.
         /// </summary>
         public const int MaxStockKeepingUnitLength = 50;
-
-        /// <summary>
-        /// The minimum length of the <see cref="StockKeepingUnit"/> property.
-        /// </summary>
-        public const int MinStockKeepingUnitLength = 1;
 
         private string stockKeepingUnit;
 
@@ -174,7 +169,7 @@
         {
             return
                 (stockKeepingUnit != null ? Exceptions.WhenNullOrWhitespace(stockKeepingUnit, nameof(stockKeepingUnit)) : null) ??
-                Exceptions.WhenLengthIsIncorrect(stockKeepingUnit, MinStockKeepingUnitLength, MaxStockKeepingUnitLength, nameof(stockKeepingUnit));
+                Exceptions.WhenLengthIsIncorrect(stockKeepingUnit, 0, MaxStockKeepingUnitLength, nameof(stockKeepingUnit));
         }
 
         private string DebuggerDisplay() => Description;

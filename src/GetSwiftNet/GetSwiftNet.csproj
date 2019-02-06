@@ -6,10 +6,10 @@
         <AssemblyName>GetSwift.net</AssemblyName>
         <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
         <RootNamespace>GetSwiftNet</RootNamespace>
-        <Version>0.0.4</Version>
+        <Version>0.0.5</Version>
         <CodeAnalysisRuleSet>..\_analyzers\GetSwiftNet.ruleset</CodeAnalysisRuleSet>
-        <AssemblyVersion>0.0.4.0</AssemblyVersion>
-        <FileVersion>0.0.4.0</FileVersion>
+        <AssemblyVersion>0.0.5.0</AssemblyVersion>
+        <FileVersion>0.0.5.0</FileVersion>
         <Authors>Paul Bentley</Authors>
         <RepositoryUrl>https://github.com/pauldbentley/getswift-dotnet</RepositoryUrl>
         <PackageProjectUrl>https://www.getswift.co/</PackageProjectUrl>

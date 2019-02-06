@@ -13,29 +13,14 @@
     public sealed class DeliveryBooking
     {
         /// <summary>
-        /// The minimum length of the <see cref="Reference"/> property.
-        /// </summary>
-        public const int MinReferenceLength = 1;
-
-        /// <summary>
         /// The maximum length of the <see cref="Reference"/> property.
         /// </summary>
         public const int MaxReferenceLength = 50;
 
         /// <summary>
-        /// The minimum length of the <see cref="DeliveryInstructions"/> property.
-        /// </summary>
-        public const int MinDeliveryInstructionsLength = 1;
-
-        /// <summary>
         /// The maximum length of the <see cref="DeliveryInstructions"/> property.
         /// </summary>
         public const int MaxDeliveryInstructionsLength = 2000;
-
-        /// <summary>
-        /// The minimum length of the <see cref="CustomerReference"/> property.
-        /// </summary>
-        public const int MinCustomerReferenceLength = 1;
 
         /// <summary>
         /// The maximum length of the <see cref="CustomerReference"/> property.
@@ -303,21 +288,21 @@
         {
             return
                 (reference != null ? Exceptions.WhenNullOrWhitespace(reference, nameof(reference)) : null) ??
-                Exceptions.WhenLengthIsIncorrect(reference, MinReferenceLength, MaxReferenceLength, nameof(reference));
+                Exceptions.WhenLengthIsIncorrect(reference, 0, MaxReferenceLength, nameof(reference));
         }
 
         private static Exception ValidateDeliveryInstructions(string deliveryInstructions)
         {
             return
                 (deliveryInstructions != null ? Exceptions.WhenNullOrWhitespace(deliveryInstructions, nameof(deliveryInstructions)) : null) ??
-                Exceptions.WhenLengthIsIncorrect(deliveryInstructions, MinDeliveryInstructionsLength, MaxDeliveryInstructionsLength, nameof(deliveryInstructions));
+                Exceptions.WhenLengthIsIncorrect(deliveryInstructions, 0, MaxDeliveryInstructionsLength, nameof(deliveryInstructions));
         }
 
         private static Exception ValidateCustomerReference(string customerReference)
         {
             return
                 (customerReference != null ? Exceptions.WhenNullOrWhitespace(customerReference, nameof(customerReference)) : null) ??
-                Exceptions.WhenLengthIsIncorrect(customerReference, MinCustomerReferenceLength, MaxCustomerReferenceLength, nameof(customerReference));
+                Exceptions.WhenLengthIsIncorrect(customerReference, 0, MaxCustomerReferenceLength, nameof(customerReference));
         }
 
         private string DebuggerDisplay() => reference ?? ToString();

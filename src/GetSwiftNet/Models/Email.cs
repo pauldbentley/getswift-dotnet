@@ -13,14 +13,14 @@
     public sealed class Email : IEquatable<Email>
     {
         /// <summary>
-        /// The maximum length of an email.
-        /// </summary>
-        public const int MaxLength = 100;
-
-        /// <summary>
         /// The minimum length of an email.
         /// </summary>
         public const int MinLength = 6;
+
+        /// <summary>
+        /// The maximum length of an email.
+        /// </summary>
+        public const int MaxLength = 100;
 
         /// <summary>
         /// The regular expression pattern of a valid email.

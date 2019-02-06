@@ -13,7 +13,8 @@
         /// <param name="dropoffAddress">The dropoff address.</param>
         public QuoteCreateInput(string dropoffAddress)
         {
-            Booking = DeliveryBooking.Create(dropoffAddress);
+            var dropoffDetail = DeliveryBookingLocation.Create(dropoffAddress);
+            Booking = DeliveryBooking.Create(dropoffDetail);
         }
 
         /// <summary>
@@ -23,7 +24,10 @@
         /// <param name="dropoffAddress">The dropoff address.</param>
         public QuoteCreateInput(string pickUpAddress, string dropoffAddress)
         {
-            Booking = DeliveryBooking.Create(pickUpAddress, dropoffAddress);
+            var pickupDetail = DeliveryBookingLocation.Create(pickUpAddress);
+            var dropoffDetail = DeliveryBookingLocation.Create(dropoffAddress);
+
+            Booking = DeliveryBooking.Create(pickupDetail, dropoffDetail);
         }
 
         /// <summary>
