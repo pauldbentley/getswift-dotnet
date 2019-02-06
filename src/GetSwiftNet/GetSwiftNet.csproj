@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <Description>Getswift.net is a sync/async .NET client for getswift.com</Description>
+        <Description>GetSwift.net is a sync/async .NET client for getswift.co</Description>
         <AssemblyTitle>GetSwift.net</AssemblyTitle>
         <AssemblyName>GetSwift.net</AssemblyName>
         <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
         <RootNamespace>GetSwiftNet</RootNamespace>
-        <Version>0.0.1</Version>
+        <Version>0.0.2</Version>
         <CodeAnalysisRuleSet>..\_analyzers\GetSwiftNet.ruleset</CodeAnalysisRuleSet>
-        <AssemblyVersion>0.0.0.1</AssemblyVersion>
-        <FileVersion>0.0.0.1</FileVersion>
+        <AssemblyVersion>0.0.2.0</AssemblyVersion>
+        <FileVersion>0.0.2.0</FileVersion>
         <Authors>Paul Bentley</Authors>
         <RepositoryUrl>https://github.com/pauldbentley/getswift-dotnet</RepositoryUrl>
         <PackageProjectUrl>https://www.getswift.co/</PackageProjectUrl>
@@ -25,10 +25,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.3" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
         <PackageReference Include="RestSharp" Version="106.6.7" />
-        <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
+        <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.3">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
     </ItemGroup>
 
 </Project>
