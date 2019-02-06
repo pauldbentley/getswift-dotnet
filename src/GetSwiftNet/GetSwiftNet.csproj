@@ -26,19 +26,4 @@
         <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
     </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
-        <Reference Include="Microsoft.CSharp" />
-        <Reference Include="System.Configuration" />
-        <Reference Include="System.Core" />
-        <Reference Include="System.Data.Linq" />
-        <Reference Include="System.Net.Http" />
-        <Reference Include="System.Net.Http.WebRequest" />
-        <Reference Include="System.Web" />
-        <Reference Include="System.Xml.Linq" />
-        <Reference Include="System.Data.DataSetExtensions" />
-        <Reference Include="System.Data" />
-        <Reference Include="System.Xml" />
-        <Reference Include="System" />
-    </ItemGroup>
-
 </Project>
