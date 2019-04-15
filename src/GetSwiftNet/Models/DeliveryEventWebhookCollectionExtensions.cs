@@ -21,15 +21,7 @@
             Guard.NotNull(collection, nameof(collection));
 
             var outcome = DeliveryEventWebhook.Create(eventName, url);
-
-            if (outcome.Success)
-            {
-                collection.Add(outcome.Value);
-            }
-            else
-            {
-                Exceptions.Throw(outcome.Errors.First());
-            }
+            collection.AddOrThrow(outcome);
         }
 
         /// <summary>

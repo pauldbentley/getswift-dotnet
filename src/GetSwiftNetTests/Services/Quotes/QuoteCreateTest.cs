@@ -29,8 +29,8 @@
             Input.Booking.Reference = "ABC123";
             Input.Booking.DeliveryInstructions = "Ring when you get to the street";
             Input.Booking.ItemsRequirePurchase = true;
-            Input.Booking.Items.Add(DeliveryBookingItem.Create("Test item description 1", "SKU1", 1, 10));
-            Input.Booking.Items.Add(DeliveryBookingItem.Create("Test item description 2", "SKU2", 1, 10));
+            Input.Booking.Items.Add("Test item description 1", "SKU1", 1, 10);
+            Input.Booking.Items.Add("Test item description 2", "SKU2", 1, 10);
             Input.Booking.PickupTime = DateTime.Now.AddHours(1);
             Input.Booking.DropoffWindow = TimeFrame.Create(DateTime.Now, DateTime.Now.AddDays(1));
             Input.Booking.CustomerFee = 10;

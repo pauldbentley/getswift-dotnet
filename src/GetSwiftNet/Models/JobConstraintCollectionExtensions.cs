@@ -20,15 +20,7 @@
             Guard.NotNull(collection, nameof(collection));
 
             var outcome = JobConstraint.Create(name, value);
-
-            if (outcome.Success)
-            {
-                collection.Add(outcome.Value);
-            }
-            else
-            {
-                Exceptions.Throw(outcome.Errors.First());
-            }
+            collection.AddOrThrow(outcome);
         }
     }
 }
