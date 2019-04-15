@@ -41,8 +41,8 @@
             Input.Booking.DriverFeePercentage = 0.8m;
             Input.Booking.DriverMatchCode = "MATCH123";
             Input.Booking.DeliverySequence = 40;
-            Input.Booking.Constraints.Add(JobConstraint.Create("Constraint 1", "true"));
-            Input.Booking.Constraints.Add(JobConstraint.Create("Constraint 2", "false"));
+            Input.Booking.Constraints.Add("Constraint 1", "true");
+            Input.Booking.Constraints.Add("Constraint 2", "false");
             Input.Booking.DeliveryRouteIdentifier = "ID123";
             Input.Booking.Webhooks.Add("job/created", "http://tempuri.org");
             Input.Booking.Webhooks.Add("job/updated", "http://tempuri.org");
