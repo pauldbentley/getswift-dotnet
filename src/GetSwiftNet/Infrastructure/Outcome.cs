@@ -49,5 +49,17 @@
         /// Gets an <see cref="Exception"/> raised when <see cref="Failure"/> is true, null otherwise.
         /// </summary>
         public IEnumerable<Exception> Errors { get; } = Enumerable.Empty<Exception>();
+
+        /// <summary>
+        /// Implicit operator from <see cref="Outcome"/> to a <see cref="bool"/>.
+        /// </summary>
+        /// <param name="result">The result.</param>
+        public static implicit operator bool(Outcome result) => result.ToBoolean();
+
+        /// <summary>
+        /// Returns a <see cref="bool"/> representation of the <see cref="Outcome"/>.
+        /// </summary>
+        /// <returns>A <see cref="bool"/> representation of the <see cref="Outcome"/>.</returns>
+        public bool ToBoolean() => Success;
     }
 }

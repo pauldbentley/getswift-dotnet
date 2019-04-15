@@ -54,6 +54,7 @@
 
         /// <summary>
         /// Gets or sets the contact name.
+        /// The name can be null, or it must not be empty or whitespace, and have a maximum length of <see cref="MaxNameLength"/>.
         /// </summary>
         public string Name
         {
@@ -171,7 +172,7 @@
         }
 
         /// <summary>
-        /// Determines whether the specified name is valid.
+        /// Determines whether the specified <paramref name="name"/> is valid.
         /// </summary>
         /// <param name="name">The name to validate.</param>
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>

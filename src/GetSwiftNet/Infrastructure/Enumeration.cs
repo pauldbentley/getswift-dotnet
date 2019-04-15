@@ -233,9 +233,9 @@
         /// Compares the current instance with another object of the same type and returns an integer that indicates
         /// whether the current instance precedes, follows, or occurs in the same position in the sort order as the other object.
         /// </summary>
-        /// <param name="other">An object to compare with this instance.</param>
+        /// <param name="obj">An object to compare with this instance.</param>
         /// <returns>A value that indicates the relative order of the objects being compared.</returns>
-        public int CompareTo(object other) => Value.CompareTo(((Enumeration)other).Value);
+        public int CompareTo(object obj) => Value.CompareTo(((Enumeration)obj).Value);
 
         private static TEnum Parse<TEnum, TProperty>(TProperty value, string description, Func<TEnum, bool> predicate)
             where TEnum : Enumeration
