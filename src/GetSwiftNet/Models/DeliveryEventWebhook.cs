@@ -12,7 +12,7 @@
     public sealed class DeliveryEventWebhook : IEquatable<DeliveryEventWebhook>
     {
         /// <summary>
-        /// The maximum length of the <see cref="EventName"/> property.
+        /// The minimum length of the <see cref="EventName"/> property.
         /// </summary>
         public const int MinEventNameLength = 1;
 

@@ -44,8 +44,8 @@
             Input.Booking.Constraints.Add(JobConstraint.Create("Constraint 1", "true"));
             Input.Booking.Constraints.Add(JobConstraint.Create("Constraint 2", "false"));
             Input.Booking.DeliveryRouteIdentifier = "ID123";
-            Input.Booking.Webhooks.Add(DeliveryEventWebhook.Create("job/created", new Uri("http://tempuri.org")));
-            Input.Booking.Webhooks.Add(DeliveryEventWebhook.Create("job/updated", new Uri("http://tempuri.org")));
+            Input.Booking.Webhooks.Add("job/created", "http://tempuri.org");
+            Input.Booking.Webhooks.Add("job/updated", "http://tempuri.org");
             Input.Booking.Template = "Template 1";
 
             return true;
