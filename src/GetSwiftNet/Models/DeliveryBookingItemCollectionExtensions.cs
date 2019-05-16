@@ -34,7 +34,7 @@
         {
             Guard.NotNull(collection, nameof(collection));
 
-            var outcome = DeliveryBookingItem.Create(description, stockKeepingUnit);
+            var outcome = DeliveryBookingItem.Create(description, stockKeepingUnit, quantity, price);
             collection.AddOrThrow(outcome);
         }
     }
