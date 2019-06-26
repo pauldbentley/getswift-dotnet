@@ -1,12 +1,14 @@
 ﻿namespace GetSwiftNet
 {
     using System;
-    using GetSwiftNet.Infrastructure;
+    using System.Diagnostics;
+    using EnsuredOutcomes;
     using Newtonsoft.Json;
 
     /// <summary>
     /// Defines a time frame for a delivery.
     /// </summary>
+    [DebuggerDisplay("{" + nameof(DebuggerDisplay) + "()}")]
     public sealed class TimeFrame : IEquatable<TimeFrame>
     {
         [JsonConstructor]
@@ -36,9 +38,12 @@
         {
             var error = Exceptions.WhenOutOfRange(latestTime, earliestTime, nameof(latestTime));
 
-            return error == null
-                ? Outcomes.Success(new TimeFrame(earliestTime, latestTime))
-                : Outcomes.Failure<TimeFrame>(error);
+            if (error == null)
+            {
+                return Outcomes.Success(new TimeFrame(earliestTime, latestTime));
+            }
+
+            return Outcomes.Failure<TimeFrame>(error);
         }
 
         /// <summary>

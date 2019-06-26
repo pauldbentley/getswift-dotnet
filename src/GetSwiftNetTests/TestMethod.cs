@@ -51,12 +51,12 @@
         {
             actual.ShouldNotBeNull();
 
-            var response = ServiceResponse.ObtainResponse(actual);
+            var response = GetSwiftResponse.GetResponse(actual);
             response.ShouldNotBeNull();
 
-            if (actual is GetSwiftException)
+            if (actual is GetSwiftException exception)
             {
-                response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+                exception.HttpStatusCode.ShouldBe(HttpStatusCode.BadRequest);
             }
             else if (actual is Exception)
             {
@@ -64,7 +64,6 @@
             else
             {
                 response.StatusCode.ShouldBe(HttpStatusCode.OK);
-                response.ErrorCode.ShouldBe(ErrorCode.None);
             }
         }
 
@@ -73,7 +72,7 @@
         /// </summary>
         public virtual void Cleanup()
         {
-            Input = default(TInput);
+            Input = default;
         }
     }
 }

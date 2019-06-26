@@ -31,7 +31,7 @@
                 return false;
             }
 
-            Service = new DriverService(TestConstants.ApiKey);
+            Service = new DriverService(TestConstants.Configuration);
             Input = new DriverListInput
             {
                 Filter = Filter

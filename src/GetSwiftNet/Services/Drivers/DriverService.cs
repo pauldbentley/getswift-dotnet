@@ -1,34 +1,25 @@
 ﻿namespace GetSwiftNet
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using GetSwiftNet.Infrastructure;
+    using EnsuredOutcomes;
 
     /// <summary>
     /// The Drivers service.
     /// </summary>
-    public class DriverService : Service
+    public class DriverService : ServiceBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DriverService"/> class.
         /// </summary>
-        public DriverService()
-            : base(GetSwiftConfiguration.BaseUrl)
+        /// <param name="configuration">The system configuration.</param>
+        public DriverService(GetSwiftConfiguration configuration)
+            : base(configuration)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DriverService"/> class with a given API key.
-        /// </summary>
-        /// <param name="apiKey">The API key.</param>
-        public DriverService(Guid apiKey)
-            : base(GetSwiftConfiguration.BaseUrl, apiKey)
-        {
-        }
-
-        /// <summary>
-        /// Gets the base path to the service.
+        /// Gets the path to the service.
         /// </summary>
         public override string ServicePath => "drivers";
 
@@ -39,8 +30,7 @@
         /// <returns>The driver with the given identifier or null if the driver doesn't exist.</returns>
         public Driver Get(DriverGetInput input)
         {
-            Guard.NotNull(input, nameof(input));
-
+            Ensure.NotNull(input, nameof(input));
             return GetRequest<Driver>(input.Id.ToString(), input);
         }
 
@@ -50,10 +40,9 @@
         /// <param name="input">The input for the request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The <see cref="Driver"/> with the given identifier or null if the driver doesn't exist.</returns>
-        public Task<Driver> GetAsync(DriverGetInput input, CancellationToken cancellationToken = default(CancellationToken))
+        public Task<Driver> GetAsync(DriverGetInput input, CancellationToken cancellationToken = default)
         {
-            Guard.NotNull(input, nameof(input));
-
+            Ensure.NotNull(input, nameof(input));
             return GetRequestAsync<Driver>(input.Id.ToString(), input, cancellationToken);
         }
 
@@ -64,9 +53,8 @@
         /// <returns>An <see cref="ApiList{T}"/> of <see cref="Driver"/> objects.</returns>
         public ApiList<Driver> List(DriverListInput input)
         {
-            Guard.NotNull(input, nameof(input));
-
-            return GetRequest<ApiList<Driver>>(input);
+            Ensure.NotNull(input, nameof(input));
+            return GetRequest<ApiList<Driver>>(string.Empty, input);
         }
 
         /// <summary>
@@ -75,11 +63,10 @@
         /// <param name="input">The input for the request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>An <see cref="ApiList{T}"/> of <see cref="Driver"/> objects.</returns>
-        public Task<ApiList<Driver>> ListAsync(DriverListInput input, CancellationToken cancellationToken = default(CancellationToken))
+        public Task<ApiList<Driver>> ListAsync(DriverListInput input, CancellationToken cancellationToken = default)
         {
-            Guard.NotNull(input, nameof(input));
-
-            return GetRequestAsync<ApiList<Driver>>(input, cancellationToken);
+            Ensure.NotNull(input, nameof(input));
+            return GetRequestAsync<ApiList<Driver>>(string.Empty, input, cancellationToken);
         }
     }
 }

@@ -19,12 +19,12 @@
 
         public override bool Arrange()
         {
-            if (TestConstants.HasDrivers || !TestConstants.DriverId.HasValue)
+            if (!TestConstants.HasDrivers || !TestConstants.DriverId.HasValue)
             {
                 return false;
             }
 
-            Service = new DriverService();
+            Service = new DriverService(TestConstants.Configuration);
             Input = new DriverGetInput(TestConstants.DriverId.Value);
 
             return true;

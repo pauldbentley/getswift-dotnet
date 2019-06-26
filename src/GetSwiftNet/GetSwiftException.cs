@@ -1,8 +1,11 @@
 ﻿namespace GetSwiftNet
 {
     using System;
+    using System.Diagnostics.Contracts;
+    using System.Net;
     using System.Runtime.Serialization;
     using System.Security.Permissions;
+    using EnsuredOutcomes;
     using GetSwiftNet.Infrastructure;
 
     /// <summary>
@@ -52,7 +55,7 @@
         /// (Nothing in Visual Basic) if no inner exception is specified.
         /// </param>
         /// <param name="response">The response from the server.</param>
-        internal GetSwiftException(string message, Exception innerException, ServiceResponse response)
+        internal GetSwiftException(string message, Exception innerException, GetSwiftResponse response)
             : base(message, innerException)
         {
             Response = response;
@@ -72,7 +75,17 @@
         /// <summary>
         /// Gets the response from the service.
         /// </summary>
-        public ServiceResponse Response { get; }
+        public GetSwiftResponse Response { get; internal set; }
+
+        /// <summary>
+        /// Gets the error code returned in the response.
+        /// </summary>
+        public GetSwiftError GetSwiftError { get; internal set; } = GetSwiftError.None;
+
+        /// <summary>
+        /// Gets the HTTP status code.
+        /// </summary>
+        public HttpStatusCode HttpStatusCode { get; internal set; }
 
         /// <summary>
         /// Sets the <see cref="SerializationInfo"/> with information about the exception.
@@ -82,7 +95,11 @@
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            Contract.Requires(info != null);
+            Ensure.NotNull(info, nameof(info));
             info.AddValue(nameof(Response), Response);
+            info.AddValue(nameof(GetSwiftError), GetSwiftError);
+            info.AddValue(nameof(HttpStatusCode), HttpStatusCode);
             base.GetObjectData(info, context);
         }
     }

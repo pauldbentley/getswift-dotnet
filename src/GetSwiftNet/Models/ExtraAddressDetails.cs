@@ -1,6 +1,7 @@
 ﻿namespace GetSwiftNet
 {
     using System;
+    using EnsuredOutcomes;
     using GetSwiftNet.Infrastructure;
     using Newtonsoft.Json;
 
@@ -109,12 +110,17 @@
                 ValidateStateProvince(stateProvince),
                 ValidateCountry(country),
                 ValidateSuburbLocality(suburbLocality),
-                ValidatePostcode(postcode)
+                ValidatePostcode(postcode),
             };
 
-            return !Exceptions.Any(errors)
-                ? Outcomes.Success(new ExtraAddressDetails(stateProvince, country, suburbLocality, postcode, latitude, longitude))
-                : Outcomes.Failure<ExtraAddressDetails>(errors);
+            if (!Exceptions.Any(errors))
+            {
+                return Outcomes.Success(new ExtraAddressDetails(stateProvince, country, suburbLocality, postcode, latitude, longitude));
+            }
+
+            return Outcomes
+                .Failure<ExtraAddressDetails>()
+                .WithError(errors);
         }
 
         /// <summary>
@@ -124,7 +130,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckStateProvince(string stateProvince)
         {
-            return Outcomes.Create(ValidateStateProvince(stateProvince));
+            return Outcomes.Determine(ValidateStateProvince(stateProvince));
         }
 
         /// <summary>
@@ -134,7 +140,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckCountry(string country)
         {
-            return Outcomes.Create(ValidateCountry(country));
+            return Outcomes.Determine(ValidateCountry(country));
         }
 
         /// <summary>
@@ -144,7 +150,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckSuburbLocality(string suburbLocality)
         {
-            return Outcomes.Create(ValidateSuburbLocality(suburbLocality));
+            return Outcomes.Determine(ValidateSuburbLocality(suburbLocality));
         }
 
         /// <summary>
@@ -154,34 +160,34 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckPostcode(string postcode)
         {
-            return Outcomes.Create(ValidatePostcode(postcode));
+            return Outcomes.Determine(ValidatePostcode(postcode));
         }
 
         private static Exception ValidateStateProvince(string stateProvince)
         {
             return
-                Exceptions.WhenNullOrWhitespace(stateProvince, nameof(stateProvince)) ??
+                Exceptions.WhenNullOrWhiteSpace(stateProvince, nameof(stateProvince)) ??
                 Exceptions.WhenLengthIsIncorrect(stateProvince, MinStateProvinceLength, MaxStateProvinceLength, nameof(stateProvince));
         }
 
         private static Exception ValidateCountry(string country)
         {
             return
-                Exceptions.WhenNullOrWhitespace(country, nameof(country)) ??
+                Exceptions.WhenNullOrWhiteSpace(country, nameof(country)) ??
                 Exceptions.WhenLengthIsIncorrect(country, MinCountryLength, MaxCountryLength, nameof(country));
         }
 
         private static Exception ValidateSuburbLocality(string suburbLocality)
         {
             return
-                Exceptions.WhenNullOrWhitespace(suburbLocality, nameof(suburbLocality)) ??
+                Exceptions.WhenNullOrWhiteSpace(suburbLocality, nameof(suburbLocality)) ??
                 Exceptions.WhenLengthIsIncorrect(suburbLocality, MinSuburbLocalityLength, MaxSuburbLocalityLength, nameof(suburbLocality));
         }
 
         private static Exception ValidatePostcode(string postcode)
         {
             return
-                Exceptions.WhenNullOrWhitespace(postcode, nameof(postcode)) ??
+                Exceptions.WhenNullOrWhiteSpace(postcode, nameof(postcode)) ??
                 Exceptions.WhenLengthIsIncorrect(postcode, MinPostcodeLength, MaxPostcodeLength, nameof(postcode));
         }
     }

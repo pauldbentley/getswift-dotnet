@@ -1,7 +1,7 @@
 ﻿namespace GetSwiftNet
 {
     using System.Collections.Generic;
-    using GetSwiftNet.Infrastructure;
+    using EnsuredOutcomes;
 
     /// <summary>
     /// Extension Add methods for <see cref="DeliveryBookingItem"/> collection initializers.
@@ -16,7 +16,7 @@
         /// <param name="stockKeepingUnit">The stock keeping unit.</param>
         public static void Add(this ICollection<DeliveryBookingItem> collection, string description, string stockKeepingUnit)
         {
-            Guard.NotNull(collection, nameof(collection));
+            Ensure.NotNull(collection, nameof(collection));
 
             var outcome = DeliveryBookingItem.Create(description, stockKeepingUnit);
             collection.AddOrThrow(outcome);
@@ -32,7 +32,7 @@
         /// <param name="price">The price.</param>
         public static void Add(this ICollection<DeliveryBookingItem> collection, string description, string stockKeepingUnit, int quantity, decimal price)
         {
-            Guard.NotNull(collection, nameof(collection));
+            Ensure.NotNull(collection, nameof(collection));
 
             var outcome = DeliveryBookingItem.Create(description, stockKeepingUnit, quantity, price);
             collection.AddOrThrow(outcome);

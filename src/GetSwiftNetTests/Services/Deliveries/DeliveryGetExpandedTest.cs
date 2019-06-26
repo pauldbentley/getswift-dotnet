@@ -24,7 +24,7 @@
                 return false;
             }
 
-            Service = new DeliveryService(TestConstants.ApiKey);
+            Service = new DeliveryService(TestConstants.Configuration);
             Input = new DeliveryGetInput(TestConstants.DeliveryId.Value)
             {
                 ExpandStageHistory = true,

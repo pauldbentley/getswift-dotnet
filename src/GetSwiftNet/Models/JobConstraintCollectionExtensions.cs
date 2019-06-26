@@ -1,8 +1,7 @@
 ﻿namespace GetSwiftNet
 {
     using System.Collections.Generic;
-    using System.Linq;
-    using GetSwiftNet.Infrastructure;
+    using EnsuredOutcomes;
 
     /// <summary>
     /// Extension Add methods for <see cref="JobConstraint"/> collection initializers.
@@ -17,7 +16,7 @@
         /// <param name="value">The value.</param>
         public static void Add(this ICollection<JobConstraint> collection, string name, string value)
         {
-            Guard.NotNull(collection, nameof(collection));
+            Ensure.NotNull(collection, nameof(collection));
 
             var outcome = JobConstraint.Create(name, value);
             collection.AddOrThrow(outcome);

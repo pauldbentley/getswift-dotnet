@@ -20,7 +20,7 @@
 
         public override bool Arrange()
         {
-            Service = new DeliveryService(TestConstants.ApiKey);
+            Service = new DeliveryService(TestConstants.Configuration);
             Input = new DeliveryCancelInput(Guid.Empty);
 
             return true;
@@ -30,7 +30,7 @@
         {
             base.Assert(actual);
 
-            actual.Response.ErrorCode.ShouldBe(ErrorCode.Unspecified);
+            actual.GetSwiftError.ShouldBe(GetSwiftError.Unspecified);
         }
     }
 }

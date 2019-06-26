@@ -9,6 +9,8 @@
         /// </summary>
         public static Guid ApiKey { get; }
 
+        public static GetSwiftConfiguration Configuration { get; } = new GetSwiftConfiguration(ApiKey);
+
         /// <summary>
         /// Gets a value indicating whether the merchant defined by <see cref="ApiKey"/> is a service based marchant.
         /// </summary>

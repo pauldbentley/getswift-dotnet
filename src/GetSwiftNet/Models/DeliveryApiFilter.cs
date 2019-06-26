@@ -23,6 +23,6 @@
         /// <summary>
         /// Deliveries that have been cancelled.
         /// </summary>
-        Cancelled = 3
+        Cancelled = 3,
     }
 }

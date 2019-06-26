@@ -28,6 +28,6 @@
         /// <summary>
         /// Gets the response sent by the server.
         /// </summary>
-        public ServiceResponse Response { get; private set; }
+        public GetSwiftResponse Response { get; private set; }
     }
 }

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics;
+    using EnsuredOutcomes;
     using GetSwiftNet.Infrastructure;
     using Newtonsoft.Json;
 
@@ -41,7 +42,7 @@
         /// Implicit operator from <see cref="Email"/> to <see cref="string"/>.
         /// </summary>
         /// <param name="email">The email.</param>
-        public static implicit operator string(Email email) => email.Value;
+        public static implicit operator string(Email email) => email?.Value;
 
         /// <summary>
         /// Implicit operator from <see cref="string"/> to <see cref="Email"/>.
@@ -58,9 +59,12 @@
         {
             var error = ValidateValue(value);
 
-            return error == null
-                ? Outcomes.Success(new Email(value))
-                : Outcomes.Failure<Email>(error);
+            if (error == null)
+            {
+                return Outcomes.Success(new Email(value));
+            }
+
+            return Outcomes.Failure<Email>(error);
         }
 
         /// <summary>
@@ -70,7 +74,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckValue(string value)
         {
-            return Outcomes.Create(ValidateValue(value));
+            return Outcomes.Determine(ValidateValue(value));
         }
 
         /// <summary>
@@ -115,7 +119,7 @@
         private static ArgumentException ValidateValue(string value)
         {
             return
-                Exceptions.WhenNullOrWhitespace(value, nameof(value)) ??
+                Exceptions.WhenNullOrWhiteSpace(value, nameof(value)) ??
                 Exceptions.WhenLengthIsIncorrect(value, MinLength, MaxLength, nameof(value)) ??
                 Exceptions.WhenDoesNotMatchPattern(value, Pattern, nameof(value));
         }

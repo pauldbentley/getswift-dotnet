@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using GetSwiftNet.Infrastructure;
+    using EnsuredOutcomes;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -214,12 +214,15 @@
             var errors = new[]
             {
                 ValidatePickupDetail(pickupDetail),
-                ValidateDropoffDetail(dropoffDetail)
+                ValidateDropoffDetail(dropoffDetail),
             };
 
-            return !Exceptions.Any(errors)
-                ? Outcomes.Success(new DeliveryBooking(pickupDetail, dropoffDetail))
-                : Outcomes.Failure<DeliveryBooking>(errors);
+            if (!Exceptions.Any(errors))
+            {
+                return Outcomes.Success(new DeliveryBooking(pickupDetail, dropoffDetail));
+            }
+
+            return Outcomes.Failure<DeliveryBooking>(errors);
         }
 
         /// <summary>
@@ -229,7 +232,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckPickupDetail(DeliveryBookingLocation pickupDetail)
         {
-            return Outcomes.Create(ValidatePickupDetail(pickupDetail));
+            return Outcomes.Determine(ValidatePickupDetail(pickupDetail));
         }
 
         /// <summary>
@@ -239,7 +242,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckDropoffDetail(DeliveryBookingLocation dropoffDetail)
         {
-            return Outcomes.Create(ValidateDropoffDetail(dropoffDetail));
+            return Outcomes.Determine(ValidateDropoffDetail(dropoffDetail));
         }
 
         /// <summary>
@@ -249,7 +252,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckReference(string reference)
         {
-            return Outcomes.Create(ValidateReference(reference));
+            return Outcomes.Determine(ValidateReference(reference));
         }
 
         /// <summary>
@@ -259,7 +262,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckDeliveryInstructions(string deliveryInstructions)
         {
-            return Outcomes.Create(ValidateDeliveryInstructions(deliveryInstructions));
+            return Outcomes.Determine(ValidateDeliveryInstructions(deliveryInstructions));
         }
 
         /// <summary>
@@ -269,7 +272,7 @@
         /// <returns>An <see cref="Outcome"/> with the specified values.</returns>
         public static Outcome CheckCustomerReference(string customerReference)
         {
-            return Outcomes.Create(ValidateCustomerReference(customerReference));
+            return Outcomes.Determine(ValidateCustomerReference(customerReference));
         }
 
         private static Exception ValidateDropoffDetail(DeliveryBookingLocation dropoffDetails)
@@ -287,24 +290,32 @@
         private static Exception ValidateReference(string reference)
         {
             return
-                (reference != null ? Exceptions.WhenNullOrWhitespace(reference, nameof(reference)) : null) ??
+                (reference != null ? Exceptions.WhenNullOrWhiteSpace(reference, nameof(reference)) : null) ??
                 Exceptions.WhenLengthIsIncorrect(reference, 0, MaxReferenceLength, nameof(reference));
         }
 
         private static Exception ValidateDeliveryInstructions(string deliveryInstructions)
         {
             return
-                (deliveryInstructions != null ? Exceptions.WhenNullOrWhitespace(deliveryInstructions, nameof(deliveryInstructions)) : null) ??
+                (deliveryInstructions != null ? Exceptions.WhenNullOrWhiteSpace(deliveryInstructions, nameof(deliveryInstructions)) : null) ??
                 Exceptions.WhenLengthIsIncorrect(deliveryInstructions, 0, MaxDeliveryInstructionsLength, nameof(deliveryInstructions));
         }
 
         private static Exception ValidateCustomerReference(string customerReference)
         {
             return
-                (customerReference != null ? Exceptions.WhenNullOrWhitespace(customerReference, nameof(customerReference)) : null) ??
+                (customerReference != null ? Exceptions.WhenNullOrWhiteSpace(customerReference, nameof(customerReference)) : null) ??
                 Exceptions.WhenLengthIsIncorrect(customerReference, 0, MaxCustomerReferenceLength, nameof(customerReference));
         }
 
-        private string DebuggerDisplay() => reference ?? ToString();
+        private object DebuggerDisplay()
+        {
+            if (!string.IsNullOrEmpty(Reference))
+            {
+                return Reference;
+            }
+
+            return this;
+        }
     }
 }

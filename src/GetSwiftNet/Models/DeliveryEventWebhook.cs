@@ -2,7 +2,7 @@
 {
     using System;
     using System.Diagnostics;
-    using GetSwiftNet.Infrastructure;
+    using EnsuredOutcomes;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -44,12 +44,15 @@
             var errors = new[]
             {
                 ValidateEventName(eventName),
-                ValidateUrl(url)
+                ValidateUrl(url),
             };
 
-            return !Exceptions.Any(errors)
-                ? Outcomes.Success(new DeliveryEventWebhook(eventName, new Uri(url)))
-                : Outcomes.Failure<DeliveryEventWebhook>(errors);
+            if (!Exceptions.Any(errors))
+            {
+                return Outcomes.Success(new DeliveryEventWebhook(eventName, new Uri(url)));
+            }
+
+            return Outcomes.Failure<DeliveryEventWebhook>(errors);
         }
 
         /// <summary>
@@ -63,12 +66,15 @@
             var errors = new[]
             {
                 ValidateEventName(eventName),
-                ValidateUrl(url)
+                ValidateUrl(url),
             };
 
-            return !Exceptions.Any(errors)
-                ? Outcomes.Success(new DeliveryEventWebhook(eventName, url))
-                : Outcomes.Failure<DeliveryEventWebhook>(errors);
+            if (!Exceptions.Any(errors))
+            {
+                return Outcomes.Success(new DeliveryEventWebhook(eventName, url));
+            }
+
+            return Outcomes.Failure<DeliveryEventWebhook>(errors);
         }
 
         /// <summary>
@@ -78,7 +84,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckEventName(string eventName)
         {
-            return Outcomes.Create(ValidateEventName(eventName));
+            return Outcomes.Determine(ValidateEventName(eventName));
         }
 
         /// <summary>
@@ -88,7 +94,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckUrl(string url)
         {
-            return Outcomes.Create(ValidateUrl(url));
+            return Outcomes.Determine(ValidateUrl(url));
         }
 
         /// <summary>
@@ -98,7 +104,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckUrl(Uri url)
         {
-            return Outcomes.Create(ValidateUrl(url));
+            return Outcomes.Determine(ValidateUrl(url));
         }
 
         /// <summary>
@@ -129,13 +135,13 @@
         private static Exception ValidateEventName(string eventName)
         {
             return
-                Exceptions.WhenNullOrWhitespace(eventName, nameof(eventName)) ??
+                Exceptions.WhenNullOrWhiteSpace(eventName, nameof(eventName)) ??
                 Exceptions.WhenLengthIsIncorrect(eventName, MinEventNameLength, int.MaxValue, nameof(eventName));
         }
 
         private static Exception ValidateUrl(string url)
         {
-            var nullCheck = Exceptions.WhenNullOrWhitespace(url, nameof(url));
+            var nullCheck = Exceptions.WhenNullOrWhiteSpace(url, nameof(url));
 
             if (nullCheck != null)
             {

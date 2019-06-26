@@ -24,7 +24,7 @@
                 return false;
             }
 
-            Service = new DeliveryService(TestConstants.ApiKey);
+            Service = new DeliveryService(TestConstants.Configuration);
             Input = new DeliveryCancelInput(TestConstants.FinishedDeliveryId.Value);
 
             return true;
@@ -34,7 +34,7 @@
         {
             base.Assert(actual);
 
-            actual.Response.ErrorCode.ShouldBe(ErrorCode.Unspecified);
+            actual.GetSwiftError.ShouldBe(GetSwiftError.Unspecified);
             actual.Message.ShouldBe("Job already finished");
         }
     }

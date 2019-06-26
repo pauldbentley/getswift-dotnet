@@ -3,13 +3,14 @@
     using System;
 
     /// <summary>
-    /// Defines the input required to list deliveries
+    /// Defines the input required to list deliveries.
     /// </summary>
     public class DeliveryListInput
     {
         /// <summary>
         /// Gets or sets the merchant API key.
         /// </summary>
+        /// <remarks>This key will take priority over the key defined on the service.</remarks>
         public Guid? ApiKey { get; set; }
 
         /// <summary>

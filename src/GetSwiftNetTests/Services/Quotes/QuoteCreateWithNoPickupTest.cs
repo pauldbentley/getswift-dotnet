@@ -24,7 +24,7 @@
                 return false;
             }
 
-            Service = new QuoteService(TestConstants.ApiKey);
+            Service = new QuoteService(TestConstants.Configuration);
             Input = new QuoteCreateInput("105 collins st, 3000");
 
             return true;
@@ -34,7 +34,7 @@
         {
             base.Assert(actual);
 
-            actual.Response.ErrorCode.ShouldBe(ErrorCode.InvalidPickupAddress);
+            actual.GetSwiftError.ShouldBe(GetSwiftError.InvalidPickupAddress);
         }
     }
 }

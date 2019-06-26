@@ -2,7 +2,7 @@
 {
     using System;
     using System.Diagnostics;
-    using GetSwiftNet.Infrastructure;
+    using EnsuredOutcomes;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -49,12 +49,15 @@
             var errors = new[]
             {
                 ValidateName(name),
-                ValidateValue(value)
+                ValidateValue(value),
             };
 
-            return !Exceptions.Any(errors)
-                ? Outcomes.Success(new JobConstraint(name, value))
-                : Outcomes.Failure<JobConstraint>(errors);
+            if (!Exceptions.Any(errors))
+            {
+                return Outcomes.Success(new JobConstraint(name, value));
+            }
+
+            return Outcomes.Failure<JobConstraint>(errors);
         }
 
         /// <summary>
@@ -64,7 +67,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckName(string name)
         {
-            return Outcomes.Create(ValidateName(name));
+            return Outcomes.Determine(ValidateName(name));
         }
 
         /// <summary>
@@ -74,7 +77,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckValue(string value)
         {
-            return Outcomes.Create(ValidateValue(value));
+            return Outcomes.Determine(ValidateValue(value));
         }
 
         /// <summary>
@@ -105,14 +108,14 @@
         private static Exception ValidateName(string name)
         {
             return
-                Exceptions.WhenNullOrWhitespace(name, nameof(name)) ??
+                Exceptions.WhenNullOrWhiteSpace(name, nameof(name)) ??
                 Exceptions.WhenLengthIsIncorrect(name, MinNameLength, int.MaxValue, nameof(name));
         }
 
         private static Exception ValidateValue(string value)
         {
             return
-                Exceptions.WhenNullOrWhitespace(value, nameof(value)) ??
+                Exceptions.WhenNullOrWhiteSpace(value, nameof(value)) ??
                 Exceptions.WhenLengthIsIncorrect(value, MinValueLength, int.MaxValue, nameof(value));
         }
 

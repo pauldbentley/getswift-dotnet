@@ -10,7 +10,7 @@
 
         public override QuoteResponse Act()
         {
-            return Service.Create(Input);
+            return Service.Create(null);
         }
 
         public override Task<QuoteResponse> ActAsync()
@@ -20,7 +20,7 @@
 
         public override bool Arrange()
         {
-            Service = new QuoteService(TestConstants.ApiKey);
+            Service = new QuoteService(TestConstants.Configuration);
 
             Input = new QuoteCreateInput("57 luscombe st, brunswick, melbourne", "105 collins st, 3000");
 

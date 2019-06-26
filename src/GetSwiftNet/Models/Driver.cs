@@ -49,7 +49,7 @@
         /// <summary>
         /// Gets the response sent by the server.
         /// </summary>
-        public ServiceResponse Response { get; private set; }
+        public GetSwiftResponse Response { get; private set; }
 
         /// <summary>
         /// Indicates whether the current object is equal to a specified object.

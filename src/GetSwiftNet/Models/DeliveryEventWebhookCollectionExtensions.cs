@@ -2,8 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using GetSwiftNet.Infrastructure;
+    using EnsuredOutcomes;
 
     /// <summary>
     /// Extension Add methods for <see cref="DeliveryEventWebhook"/> collection initializers.
@@ -18,7 +17,7 @@
         /// <param name="url">The URL to be called when the event occurs.</param>
         public static void Add(this ICollection<DeliveryEventWebhook> collection, string eventName, Uri url)
         {
-            Guard.NotNull(collection, nameof(collection));
+            Ensure.NotNull(collection, nameof(collection));
 
             var outcome = DeliveryEventWebhook.Create(eventName, url);
             collection.AddOrThrow(outcome);

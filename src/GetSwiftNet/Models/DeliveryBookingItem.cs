@@ -2,7 +2,7 @@
 {
     using System;
     using System.Diagnostics;
-    using GetSwiftNet.Infrastructure;
+    using EnsuredOutcomes;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -84,12 +84,15 @@
             var errors = new[]
             {
                 ValidateDescription(description),
-                ValidateStockKeepingUnit(stockKeepingUnit)
+                ValidateStockKeepingUnit(stockKeepingUnit),
             };
 
-            return !Exceptions.Any(errors)
-                ? Outcomes.Success(new DeliveryBookingItem(description, stockKeepingUnit, null, null))
-                : Outcomes.Failure<DeliveryBookingItem>(errors);
+            if (!Exceptions.Any(errors))
+            {
+                return Outcomes.Success(new DeliveryBookingItem(description, stockKeepingUnit, null, null));
+            }
+
+            return Outcomes.Failure<DeliveryBookingItem>(errors);
         }
 
         /// <summary>
@@ -120,7 +123,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckDescription(string description)
         {
-            return Outcomes.Create(ValidateDescription(description));
+            return Outcomes.Determine(ValidateDescription(description));
         }
 
         /// <summary>
@@ -130,7 +133,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckStockKeepingUnit(string stockKeepingUnit)
         {
-            return Outcomes.Create(ValidateStockKeepingUnit(stockKeepingUnit));
+            return Outcomes.Determine(ValidateStockKeepingUnit(stockKeepingUnit));
         }
 
         /// <summary>
@@ -161,14 +164,14 @@
         private static Exception ValidateDescription(string description)
         {
             return
-                Exceptions.WhenNullOrWhitespace(description, nameof(description)) ??
+                Exceptions.WhenNullOrWhiteSpace(description, nameof(description)) ??
                 Exceptions.WhenLengthIsIncorrect(description, MinDescriptionLength, MaxDescriptionLength, nameof(description));
         }
 
         private static Exception ValidateStockKeepingUnit(string stockKeepingUnit)
         {
             return
-                (stockKeepingUnit != null ? Exceptions.WhenNullOrWhitespace(stockKeepingUnit, nameof(stockKeepingUnit)) : null) ??
+                (stockKeepingUnit != null ? Exceptions.WhenNullOrWhiteSpace(stockKeepingUnit, nameof(stockKeepingUnit)) : null) ??
                 Exceptions.WhenLengthIsIncorrect(stockKeepingUnit, 0, MaxStockKeepingUnitLength, nameof(stockKeepingUnit));
         }
 

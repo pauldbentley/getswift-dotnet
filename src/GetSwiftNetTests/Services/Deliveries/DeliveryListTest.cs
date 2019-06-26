@@ -31,7 +31,7 @@
                 return false;
             }
 
-            Service = new DeliveryService(TestConstants.ApiKey);
+            Service = new DeliveryService(TestConstants.Configuration);
             Input = new DeliveryListInput
             {
                 Filter = Filter

@@ -85,13 +85,13 @@
 
         /// <summary>
         /// Gets the time (if any) that the delivery is scheduled to be pickup up.
-        /// Time is in UTC
+        /// Time is in UTC.
         /// </summary>
         public DateTime? PickupTime { get; }
 
         /// <summary>
         /// Gets the time (if any) that the delivery is scheduled to be dropped off.
-        /// Time is in UTC
+        /// Time is in UTC.
         /// </summary>
         public TimeFrame DropoffTime { get; }
 
@@ -117,7 +117,7 @@
         public ProofOfDelivery ProofOfDelivery { get;  }
 
         /// <summary>
-        /// Gets the driver tip
+        /// Gets the driver tip.
         /// </summary>
         public decimal DriverTip { get; }
 
@@ -139,6 +139,6 @@
         /// <summary>
         /// Gets the full response sent by the server.
         /// </summary>
-        public ServiceResponse Response { get; private set; }
+        public GetSwiftResponse Response { get; private set; }
     }
 }

@@ -20,7 +20,7 @@
 
         public override bool Arrange()
         {
-            Service = new DriverService();
+            Service = new DriverService(TestConstants.Configuration);
             Input = new DriverGetInput(Guid.Empty);
 
             return true;
@@ -30,7 +30,7 @@
         {
             base.Assert(actual);
 
-            actual.Response.ErrorCode.ShouldBe(ErrorCode.NoData);
+            actual.GetSwiftError.ShouldBe(GetSwiftError.NoData);
         }
     }
 }

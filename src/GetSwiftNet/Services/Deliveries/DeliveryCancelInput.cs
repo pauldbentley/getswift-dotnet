@@ -29,8 +29,8 @@
 
         /// <summary>
         /// Gets or sets your merchant API key.
-        /// This key will take priority over the key defined on the service or the <see cref="GetSwiftConfiguration.ApiKey"/>.
         /// </summary>
+        /// <remarks>This key will take priority over the key defined on the service.</remarks>
         public Guid? ApiKey { get; set; }
 
         /// <summary>

@@ -1,34 +1,25 @@
 ﻿namespace GetSwiftNet
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using GetSwiftNet.Infrastructure;
+    using EnsuredOutcomes;
 
     /// <summary>
     /// The Quotes service.
     /// </summary>
-    public class QuoteService : Service
+    public class QuoteService : ServiceBase
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="QuoteService"/> class.
         /// </summary>
-        public QuoteService()
-            : base(GetSwiftConfiguration.BaseUrl)
+        /// <param name="configuration">The system configuration.</param>
+        public QuoteService(GetSwiftConfiguration configuration)
+            : base(configuration)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuoteService"/> class with a given API key.
-        /// </summary>
-        /// <param name="apiKey">The API key.</param>
-        public QuoteService(Guid apiKey)
-            : base(GetSwiftConfiguration.BaseUrl, apiKey)
-        {
-        }
-
-        /// <summary>
-        /// Gets the base path to the service.
+        /// Gets the path to the service.
         /// </summary>
         public override string ServicePath => "quotes";
 
@@ -39,9 +30,8 @@
         /// <returns>A <see cref="QuoteResponse"/> containing a quote.</returns>
         public QuoteResponse Create(QuoteCreateInput input)
         {
-            Guard.NotNull(input, nameof(input));
-
-            return PostRequest<QuoteResponse>(input);
+            Ensure.NotNull(input, nameof(input));
+            return PostRequest<QuoteResponse>(string.Empty, input);
         }
 
         /// <summary>
@@ -50,11 +40,10 @@
         /// <param name="input">The details to create the quote.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>A <see cref="QuoteResponse"/> containing a quote.</returns>
-        public Task<QuoteResponse> CreateAsync(QuoteCreateInput input, CancellationToken cancellationToken = default(CancellationToken))
+        public Task<QuoteResponse> CreateAsync(QuoteCreateInput input, CancellationToken cancellationToken = default)
         {
-            Guard.NotNull(input, nameof(input));
-
-            return PostRequestAsync<QuoteResponse>(input, cancellationToken);
+            Ensure.NotNull(input, nameof(input));
+            return PostRequestAsync<QuoteResponse>(string.Empty, input, cancellationToken);
         }
     }
 }

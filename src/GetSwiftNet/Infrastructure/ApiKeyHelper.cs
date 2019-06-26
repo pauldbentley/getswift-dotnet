@@ -4,7 +4,7 @@
     using System.Reflection;
 
     /// <summary>
-    /// Provides helper methods for working with API keys.
+    /// Provides helper methods for working with GetSwift API keys.
     /// </summary>
     internal static class ApiKeyHelper
     {
@@ -18,15 +18,18 @@
         /// </summary>
         /// <param name="value">The object to have the API key allocated.</param>
         /// <param name="apiKey">The API key to apply to the object if it isn't already allocated.</param>
-        public static void AllocateApiKey(object value, Guid? apiKey)
+        /// <returns>The object value.</returns>
+        public static object AllocateApiKey(object value, Guid? apiKey)
         {
             if (value == null || !apiKey.HasValue)
             {
-                return;
+                return value;
             }
 
             var property = GetApiKeyProperty(value);
             SetApiKeyProperty(property, value, apiKey);
+
+            return value;
         }
 
         private static PropertyInfo GetApiKeyProperty(object value)

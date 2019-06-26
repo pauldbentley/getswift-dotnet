@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using EnsuredOutcomes;
 
     /// <summary>
     /// Provides the base class for enumeration values.
@@ -15,10 +16,10 @@
         /// </summary>
         /// <param name="name">The name of the enumeration value.</param>
         /// <param name="value">The enumeration value.</param>
-        /// <param name="displayName">The display name of the enumeration value</param>
+        /// <param name="displayName">The display name of the enumeration value.</param>
         protected Enumeration(string name, int value, string displayName)
         {
-            Guard.NotNullOrWhitespace(name, nameof(name));
+            Ensure.NotNullOrWhitespace(name, nameof(name));
 
             Name = name;
             Value = value;
@@ -97,8 +98,9 @@
         /// <returns>true if the left value is greater than the right value, false otherwise.</returns>
         public static bool operator >(Enumeration left, Enumeration right)
         {
-            bool leftIsNull = left is null;
-            return !leftIsNull && left.CompareTo(right) > 0;
+            return left == null
+                ? false
+                : left.CompareTo(right) > 0;
         }
 
         /// <summary>
@@ -117,7 +119,7 @@
         /// <summary>
         /// Gets all enumeration values for the given type.
         /// </summary>
-        /// <typeparam name="T">The type of enumeration</typeparam>
+        /// <typeparam name="T">The type of enumeration.</typeparam>
         /// <returns>A list of enumeration values.</returns>
         public static IEnumerable<T> GetAll<T>()
             where T : Enumeration

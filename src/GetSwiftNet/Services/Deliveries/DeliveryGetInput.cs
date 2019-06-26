@@ -26,19 +26,16 @@
         /// <summary>
         /// Gets or sets a value indicating whether the <see cref="DeliveryDetails.StageHistory"/> property should be expanded.
         /// </summary>
-        [JsonIgnore]
         public bool ExpandStageHistory { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the <see cref="DeliveryDetails.Constraints"/> property should be expanded.
         /// </summary>
-        [JsonIgnore]
         public bool ExpandConstraints { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the <see cref="DeliveryDetails.Items"/> property should be expanded.
         /// </summary>
-        [JsonIgnore]
         public bool ExpandItems { get; set; }
     }
 }

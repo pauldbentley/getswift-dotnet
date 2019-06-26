@@ -20,7 +20,7 @@
 
         public override bool Arrange()
         {
-            Service = new QuoteService(TestConstants.ApiKey);
+            Service = new QuoteService(TestConstants.Configuration);
 
             Input = new QuoteCreateInput("57 luscombe st, brunswick, melbourne", "105 collins st, 3000");
             Input.Booking.DropoffWindow = TimeFrame.Create(DateTime.Now.AddDays(-100), DateTime.Now);
@@ -32,7 +32,7 @@
         {
             base.Assert(actual);
 
-            actual.Response.ErrorCode.ShouldBe(ErrorCode.PastDeliveryWindow);
+            actual.GetSwiftError.ShouldBe(GetSwiftError.PastDeliveryWindow);
         }
     }
 }

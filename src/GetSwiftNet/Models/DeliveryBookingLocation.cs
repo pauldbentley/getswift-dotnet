@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics;
+    using EnsuredOutcomes;
     using GetSwiftNet.Infrastructure;
     using Newtonsoft.Json;
 
@@ -163,12 +164,15 @@
                 ValidatePhone(phone),
                 ValidateEmail(email),
                 ValidateDescription(description),
-                ValidateAdditionalAddressDetails(additionalAddressDetails)
+                ValidateAdditionalAddressDetails(additionalAddressDetails),
             };
 
-            return !Exceptions.Any(errors)
-                ? Outcomes.Success(new DeliveryBookingLocation(name, phone, email, description, address, additionalAddressDetails))
-                : Outcomes.Failure<DeliveryBookingLocation>(errors);
+            if (!Exceptions.Any(errors))
+            {
+                return Outcomes.Success(new DeliveryBookingLocation(name, phone, email, description, address, additionalAddressDetails));
+            }
+
+            return Outcomes.Failure<DeliveryBookingLocation>(errors);
         }
 
         /// <summary>
@@ -178,7 +182,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckName(string name)
         {
-            return Outcomes.Create(ValidateName(name));
+            return Outcomes.Determine(ValidateName(name));
         }
 
         /// <summary>
@@ -188,7 +192,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckPhone(string phone)
         {
-            return Outcomes.Create(ValidatePhone(phone));
+            return Outcomes.Determine(ValidatePhone(phone));
         }
 
         /// <summary>
@@ -198,7 +202,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckEmail(Email email)
         {
-            return Outcomes.Create(ValidateEmail(email));
+            return Outcomes.Determine(ValidateEmail(email));
         }
 
         /// <summary>
@@ -208,7 +212,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckDescription(string description)
         {
-            return Outcomes.Create(ValidateDescription(description));
+            return Outcomes.Determine(ValidateDescription(description));
         }
 
         /// <summary>
@@ -218,7 +222,7 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckAddress(string address)
         {
-            return Outcomes.Create(ValidateAddress(address));
+            return Outcomes.Determine(ValidateAddress(address));
         }
 
         /// <summary>
@@ -228,20 +232,20 @@
         /// <returns>An <see cref="Outcome"/> with the outcome of the validation.</returns>
         public static Outcome CheckAdditionalAddressDetails(ExtraAddressDetails extraAddressDetails)
         {
-            return Outcomes.Create(ValidateAdditionalAddressDetails(extraAddressDetails));
+            return Outcomes.Determine(ValidateAdditionalAddressDetails(extraAddressDetails));
         }
 
         private static Exception ValidateName(string name)
         {
             return
-                (name != null ? Exceptions.WhenNullOrWhitespace(name, nameof(name)) : null) ??
+                (name != null ? Exceptions.WhenNullOrWhiteSpace(name, nameof(name)) : null) ??
                 Exceptions.WhenLengthIsIncorrect(name, 0, MaxNameLength, nameof(name));
         }
 
         private static Exception ValidatePhone(string phone)
         {
             return
-                (phone != null ? Exceptions.WhenNullOrWhitespace(phone, nameof(phone)) : null) ??
+                (phone != null ? Exceptions.WhenNullOrWhiteSpace(phone, nameof(phone)) : null) ??
                 Exceptions.WhenLengthIsIncorrect(phone, 0, MaxPhoneLength, nameof(phone));
         }
 
@@ -255,14 +259,14 @@
         private static Exception ValidateDescription(string description)
         {
             return
-                (description != null ? Exceptions.WhenNullOrWhitespace(description, nameof(description)) : null) ??
+                (description != null ? Exceptions.WhenNullOrWhiteSpace(description, nameof(description)) : null) ??
                 Exceptions.WhenLengthIsIncorrect(description, 0, MaxDescriptionLength, nameof(description));
         }
 
         private static Exception ValidateAddress(string address)
         {
             return
-                Exceptions.WhenNullOrWhitespace(address, nameof(address)) ??
+                Exceptions.WhenNullOrWhiteSpace(address, nameof(address)) ??
                 Exceptions.WhenLengthIsIncorrect(address, MinAddressLength, MaxAddressLength, nameof(address));
         }
 

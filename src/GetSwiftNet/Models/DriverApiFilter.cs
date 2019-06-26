@@ -28,6 +28,6 @@
         /// <summary>
         /// Drivers who have been deactivated.
         /// </summary>
-        Deactivated = 4
+        Deactivated = 4,
     }
 }
