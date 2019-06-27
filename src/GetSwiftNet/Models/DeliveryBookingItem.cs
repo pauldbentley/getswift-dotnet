@@ -26,13 +26,13 @@
         /// </summary>
         public const int MaxStockKeepingUnitLength = 50;
 
-        private string stockKeepingUnit;
+        private string _stockKeepingUnit;
 
         [JsonConstructor]
         private DeliveryBookingItem(string description, string stockKeepingUnit, int? quantity, decimal? price)
         {
             Description = description;
-            this.stockKeepingUnit = stockKeepingUnit;
+            _stockKeepingUnit = stockKeepingUnit;
             Quantity = quantity;
             Price = price;
         }
@@ -48,11 +48,11 @@
         [JsonProperty("sku")]
         public string StockKeepingUnit
         {
-            get => stockKeepingUnit;
+            get => _stockKeepingUnit;
             set
             {
                 Exceptions.Throw(ValidateStockKeepingUnit(value));
-                stockKeepingUnit = value;
+                _stockKeepingUnit = value;
             }
         }
 

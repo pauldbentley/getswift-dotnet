@@ -12,7 +12,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="GetSwiftConfiguration"/> class.
         /// </summary>
-        /// <param name="apiKey"></param>
+        /// <param name="apiKey">The merchant API key.</param>
         public GetSwiftConfiguration(Guid apiKey)
         {
             ApiKey = apiKey;
@@ -21,7 +21,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="GetSwiftConfiguration"/> class.
         /// </summary>
-        /// <param name="baseUrl"></param>
+        /// <param name="baseUrl">The base URI of the API.</param>
         public GetSwiftConfiguration(Uri baseUrl)
         {
             BaseUrl = baseUrl ?? throw new ArgumentNullException(nameof(baseUrl));
@@ -30,8 +30,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="GetSwiftConfiguration"/> class.
         /// </summary>
-        /// <param name="apiKey"></param>
-        /// <param name="baseUrl"></param>
+        /// <param name="apiKey">The merchant API key.</param>
+        /// <param name="baseUrl">The base URI of the API.</param>
         public GetSwiftConfiguration(Guid apiKey, Uri baseUrl)
         {
             ApiKey = apiKey;
@@ -40,8 +40,8 @@
 
         /// <summary>
         /// Gets the API key.
-        /// If an API key is not provided on the request input or in the service this will be used.
         /// </summary>
+        /// <remarks>If an API key is not provided on the request input this will be used.</remarks>
         public Guid? ApiKey { get; }
 
         /// <summary>

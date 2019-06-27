@@ -5,13 +5,13 @@
     using GetSwiftNet.Infrastructure;
     using Newtonsoft.Json;
 
-#pragma warning disable CA1710
+#pragma warning disable CA1710 // Identifiers should have correct suffix
     /// <summary>
     /// A list of objects returned from the API service.
     /// </summary>
     /// <typeparam name="T">The type of elements in the list.</typeparam>
     public class ApiList<T> : IEnumerable<T>
-#pragma warning restore CA1710
+#pragma warning restore CA1710 // Identifiers should have correct suffix
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiList{T}"/> class with the specified data.

@@ -37,18 +37,18 @@
         /// </summary>
         public const int MaxAddressLength = 250;
 
-        private string name;
-        private string phone;
-        private Email email;
-        private string description;
+        private string _name;
+        private string _phone;
+        private Email _email;
+        private string _description;
 
         [JsonConstructor]
         private DeliveryBookingLocation(string name, string phone, Email email, string description, string address, ExtraAddressDetails additionalAddressDetails)
         {
-            this.name = name;
-            this.phone = phone;
-            this.email = email;
-            this.description = description;
+            _name = name;
+            _phone = phone;
+            _email = email;
+            _description = description;
             Address = address;
             AdditionalAddressDetails = additionalAddressDetails;
         }
@@ -59,11 +59,11 @@
         /// </summary>
         public string Name
         {
-            get => name;
+            get => _name;
             set
             {
                 Exceptions.Throw(ValidateName(value));
-                name = value;
+                _name = value;
             }
         }
 
@@ -72,11 +72,11 @@
         /// </summary>
         public string Phone
         {
-            get => phone;
+            get => _phone;
             set
             {
                 Exceptions.Throw(ValidatePhone(value));
-                phone = value;
+                _phone = value;
             }
         }
 
@@ -85,11 +85,11 @@
         /// </summary>
         public Email Email
         {
-            get => email;
+            get => _email;
             set
             {
                 Exceptions.Throw(ValidateEmail(value));
-                email = value;
+                _email = value;
             }
         }
 
@@ -98,11 +98,11 @@
         /// </summary>
         public string Description
         {
-            get => description;
+            get => _description;
             set
             {
                 Exceptions.Throw(ValidatePhone(value));
-                description = value;
+                _description = value;
             }
         }
 

@@ -27,14 +27,9 @@
         /// </summary>
         public const int MaxCustomerReferenceLength = 50;
 
-        private string reference;
-        private string deliveryInstructions;
-        private string customerReference;
-
-        private DeliveryBooking(DeliveryBookingLocation dropoffDetail)
-            : this(null, null, false, null, null, null, dropoffDetail, null, null, null, null, null, null, null, null, null, null)
-        {
-        }
+        private string _reference;
+        private string _deliveryInstructions;
+        private string _customerReference;
 
         private DeliveryBooking(DeliveryBookingLocation pickupDetail, DeliveryBookingLocation dropoffDetail)
             : this(null, null, false, null, pickupDetail, null, dropoffDetail, null, null, null, null, null, null, null, null, null, null)
@@ -44,15 +39,15 @@
         [JsonConstructor]
         private DeliveryBooking(string reference, string deliveryInstructions, bool? itemsRequirePurchase, DateTime? pickupTime, DeliveryBookingLocation pickupDetail, TimeFrame dropoffWindow, DeliveryBookingLocation dropoffDetail, decimal? customerFee, string customerReference, decimal? tax, bool? taxInclusivePrice, decimal? tip, decimal? driverFeePercentage, string driverMatchCode, int? deliverySequence, string deliveryRouteIdentifier, string template)
         {
-            this.reference = reference;
-            this.deliveryInstructions = deliveryInstructions;
+            _reference = reference;
+            _deliveryInstructions = deliveryInstructions;
             ItemsRequirePurchase = itemsRequirePurchase;
             PickupTime = pickupTime;
             PickupDetail = pickupDetail;
             DropoffWindow = dropoffWindow;
             DropoffDetail = dropoffDetail;
             CustomerFee = customerFee;
-            this.customerReference = customerReference;
+            _customerReference = customerReference;
             Tax = tax;
             TaxInclusivePrice = taxInclusivePrice;
             Tip = tip;
@@ -69,11 +64,11 @@
         /// </summary>
         public string Reference
         {
-            get => reference;
+            get => _reference;
             set
             {
                 Exceptions.Throw(ValidateReference(value));
-                reference = value;
+                _reference = value;
             }
         }
 
@@ -83,11 +78,11 @@
         /// </summary>
         public string DeliveryInstructions
         {
-            get => deliveryInstructions;
+            get => _deliveryInstructions;
             set
             {
                 Exceptions.Throw(ValidateDeliveryInstructions(value));
-                deliveryInstructions = value;
+                _deliveryInstructions = value;
             }
         }
 
@@ -137,11 +132,11 @@
         /// </summary>
         public string CustomerReference
         {
-            get => customerReference;
+            get => _customerReference;
             set
             {
                 Exceptions.Throw(ValidateCustomerReference(value));
-                customerReference = value;
+                _customerReference = value;
             }
         }
 

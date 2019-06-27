@@ -14,11 +14,12 @@
     <RepositoryUrl>https://github.com/pauldbentley/getswift-dotnet</RepositoryUrl>
     <PackageProjectUrl>https://www.getswift.co/</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseUrl>https://github.com/pauldbentley/getswift-dotnet/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <RepositoryType>github</RepositoryType>
     <PackageTags>getswift</PackageTags>
     <PackageIconUrl>https://raw.githubusercontent.com/pauldbentley/getswift-dotnet/master/src/GetSwiftNet/getswift.png</PackageIconUrl>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>

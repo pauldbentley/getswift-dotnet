@@ -138,7 +138,7 @@
         /// <returns>A 32-bit signed integer, x, such that 0 ≤ x ≤ <see cref="int.MaxValue"/>.</returns>
         public static int AbsoluteDifference(Enumeration firstValue, Enumeration secondValue)
         {
-            return Math.Abs(firstValue.Value - secondValue.Value);
+            return Math.Abs(firstValue?.Value ?? 0 - secondValue?.Value ?? 0);
         }
 
         /// <summary>
@@ -237,7 +237,7 @@
         /// </summary>
         /// <param name="obj">An object to compare with this instance.</param>
         /// <returns>A value that indicates the relative order of the objects being compared.</returns>
-        public int CompareTo(object obj) => Value.CompareTo(((Enumeration)obj).Value);
+        public int CompareTo(object obj) => Value.CompareTo(((Enumeration)obj)?.Value);
 
         private static TEnum Parse<TEnum, TProperty>(TProperty value, string description, Func<TEnum, bool> predicate)
             where TEnum : Enumeration

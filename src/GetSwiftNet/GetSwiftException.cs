@@ -1,7 +1,6 @@
 ﻿namespace GetSwiftNet
 {
     using System;
-    using System.Diagnostics.Contracts;
     using System.Net;
     using System.Runtime.Serialization;
     using System.Security.Permissions;
@@ -95,7 +94,6 @@
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            Contract.Requires(info != null);
             Ensure.NotNull(info, nameof(info));
             info.AddValue(nameof(Response), Response);
             info.AddValue(nameof(GetSwiftError), GetSwiftError);

@@ -7,7 +7,7 @@
     /// <summary>
     /// The Quotes service.
     /// </summary>
-    public class QuoteService : ServiceBase
+    public class QuoteService : ServiceBase, IGetSwiftQuotes
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="QuoteService"/> class.

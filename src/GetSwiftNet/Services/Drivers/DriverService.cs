@@ -7,7 +7,7 @@
     /// <summary>
     /// The Drivers service.
     /// </summary>
-    public class DriverService : ServiceBase
+    public class DriverService : ServiceBase, IGetSwiftDrivers
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DriverService"/> class.
